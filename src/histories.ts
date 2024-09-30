@@ -1,9 +1,11 @@
 import type { GalaxyClient } from './GalaxyClient'
+import type { GalaxyDataset, GalaxyHistoryDetailed, HDASummary } from './types'
 
-import type { DatasetsTerminalStates, GalaxyDataset, type GalaxyHistoryDetailed, type HDASummary } from './types'
 import { createError } from 'h3'
+
 import { getErrorMessage } from './errors'
 import { delay } from './helpers'
+import { DatasetsTerminalStates } from './types'
 
 export class Histories {
   private static instance: Histories
