@@ -1,5 +1,5 @@
 {
-  "name": "galaxy-js",
+  "name": "@rplanel/galaxy-js",
   "type": "module",
   "version": "0.0.0",
   "packageManager": "pnpm@9.9.0",
