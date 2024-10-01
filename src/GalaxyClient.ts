@@ -1,4 +1,5 @@
-import type { $Fetch, NitroFetchRequest } from 'nitropack'
+// import type { $Fetch } from 'nitropack'
+import type { $Fetch } from 'ofetch'
 import type { GalaxyVersion } from './types'
 
 import { $fetch } from 'ofetch'
@@ -11,22 +12,20 @@ export class GalaxyClient {
   private static instance: GalaxyClient
   #apiKey: string
   url: string
-  api: <T>() => $Fetch<T, NitroFetchRequest>
+  api: $Fetch
 
   private constructor(apiKey: string, url: string) {
     this.#apiKey = apiKey
     this.url = url
     const fetch = $fetch.create({
-      baseURL: this.url,
       headers: {
-        'x-api-key': this.#apiKey,
+        'x-api-key': apiKey,
         'accept': 'application/json, text/plain, */*',
         'Content-Type': 'application/json',
       },
+      baseURL: this.url,
     })
-    this.api = <T>() => {
-      return fetch as $Fetch<T, NitroFetchRequest>
-    }
+    this.api = fetch
   }
 
   static getInstance(apiKey: string, url: string): GalaxyClient {
@@ -38,9 +37,7 @@ export class GalaxyClient {
   }
 
   public async getVersion(): Promise<GalaxyVersion> {
-    return await this.api<GalaxyVersion>()('/api/version', {
-      method: 'GET',
-    })
+    return await this.api('/api/version')
   }
 
   public histories(): Histories {

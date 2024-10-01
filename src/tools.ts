@@ -21,7 +21,7 @@ export class Tools {
 
   public async getTool(toolId: string, version: string): Promise<GalaxyHistoryDetailed> {
     try {
-      const galaxyTool = await this.#client.api<GalaxyHistoryDetailed>()(
+      const galaxyTool = await this.#client.api(
         `api/tools/${toolId}?io_details=true&version=${version}`,
         {
           method: 'GET',

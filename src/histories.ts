@@ -25,7 +25,7 @@ export class Histories {
 
   public async createHistory(name: string): Promise<GalaxyHistoryDetailed> {
     try {
-      return await this.#client.api<GalaxyHistoryDetailed>()(
+      return await this.#client.api(
         'api/histories',
         {
           method: 'POST',
@@ -35,6 +35,7 @@ export class Histories {
       )
     }
     catch (error) {
+      // console.error(error)
       throw createError({
         statusCode: 500,
         statusMessage: getErrorMessage(error),
@@ -44,7 +45,7 @@ export class Histories {
 
   public async deleteHistory(historyId: string): Promise<GalaxyHistoryDetailed> {
     try {
-      const galaxyHistory = await this.#client.api<GalaxyHistoryDetailed>()(`api/histories/${historyId}`, {
+      const galaxyHistory = await this.#client.api(`api/histories/${historyId}`, {
         method: 'DELETE',
         body: { purge: true },
       })
@@ -60,7 +61,7 @@ export class Histories {
 
   public async getHistories(): Promise<GalaxyHistoryDetailed[]> {
     try {
-      const galaxyHistories = await this.#client.api<GalaxyHistoryDetailed[]>()('api/histories', {
+      const galaxyHistories = await this.#client.api('api/histories', {
         method: 'GET',
       })
       return galaxyHistories
@@ -75,7 +76,7 @@ export class Histories {
 
   public async getHistory(historyId: string): Promise<GalaxyHistoryDetailed> {
     try {
-      const galaxyHistory = await this.#client.api<GalaxyHistoryDetailed>()(`api/histories/${historyId}`, {
+      const galaxyHistory = await this.#client.api(`api/histories/${historyId}`, {
         method: 'GET',
       })
       return galaxyHistory
@@ -107,7 +108,7 @@ export class Histories {
       files: [],
     }
     try {
-      const galaxyDataset = await this.#client.api<GalaxyDataset>()(
+      const galaxyDataset: GalaxyDataset = await this.#client.api(
         'api/tools/fetch',
         {
           method: 'POST',
@@ -130,7 +131,7 @@ export class Histories {
 
     while (!terminalState) {
       try {
-        const datasets = await this.#client.api<HDASummary[]>()(
+        const datasets: HDASummary[] = await this.#client.api(
           `api/histories/${historyId}/contents`,
           {
             method: 'GET',
@@ -158,7 +159,7 @@ export class Histories {
   public async downloadDataset(historyId: string, datasetId: string): Promise<unknown> {
     // /api/histories/{history_id}/contents/{history_content_id}/display
     try {
-      const dataset = await this.#client.api()(
+      const dataset: HDASummary = await this.#client.api(
         `api/histories/${historyId}/contents/${datasetId}/display`,
         {
           method: 'GET',

@@ -24,7 +24,7 @@ export class Invocations {
 
   public async getInvocation(invocationId: string): Promise<GalaxyInvocation> {
     try {
-      const invocation = await this.#client.api<GalaxyInvocation>()(
+      const invocation = await this.#client.api(
         `api/invocations/${invocationId}`,
         {
           method: 'GET',
