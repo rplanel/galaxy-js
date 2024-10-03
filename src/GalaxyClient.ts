@@ -55,4 +55,8 @@ export class GalaxyClient {
   public invocations(): Invocations {
     return Invocations.getInstance(this)
   }
+
+  public jobs(): Invocations {
+    return Invocations.getInstance(this)
+  }
 }

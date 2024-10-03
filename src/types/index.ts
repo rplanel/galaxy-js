@@ -310,3 +310,117 @@ export interface GalaxyTool {
   outputs: GalaxyToolOutput[]
 
 }
+// Job
+
+export const JobTerminalStates = [
+  'deleted',
+  'deleting',
+  'error',
+  'ok',
+] as const
+
+export const JobStates = [
+  ...JobTerminalStates,
+  'new',
+  'resubmitted',
+  'upload',
+  'waiting',
+  'queued',
+  'running',
+  'failed',
+  'paused',
+  'stop',
+  'stopped',
+  'skipped',
+] as const
+
+export type JobState = typeof JobStates[number]
+
+export interface GalaxyJob {
+  model_class: 'Job'
+  id: string
+  history_id: string
+  tool_id: string
+  exit_code: number
+  state: JobState
+  create_time: string
+  update_time: string
+  params: Record<string, any>
+  stdout: string
+  stderr: string
+
+}
+
+/*
+
+{
+  "model_class": "Job",
+  "id": "fd95348bc1e381f8",
+  "state": "error",
+  "exit_code": 1,
+  "update_time": "2024-10-03T09:13:12.386949",
+  "create_time": "2024-10-03T09:11:28.818087",
+  "galaxy_version": "22.05",
+  "command_version": "",
+  "tool_id": "toolshed.g2.bx.psu.edu/repos/rplanel/defense_finder/defense_finder/1.2.2+galaxy1",
+  "history_id": "3e25ab37485f3bac",
+  "params": {
+    "coverage": "\"0.4\"",
+    "db_type": "\"unordered\"",
+    "models": "\"defense-finder-models_1.3.0\"",
+    "no_cut_ga": "\"true\"",
+    "preserve_raw": "\"true\"",
+    "__workflow_invocation_uuid__": "\"789aee7e816711ef8d27005056b57508\"",
+    "chromInfo": "\"/pasteur/zeus/projets/p00/galaxy-prod/galaxy-dist/tool-data/shared/ucsc/chrom/?.len\"",
+    "dbkey": "\"?\"",
+    "__input_ext": "\"input\""
+  },
+  "inputs": {
+    "genome": {
+      "id": "3ce3e2281e4506fb272a9be119dc4497",
+      "src": "hda",
+      "uuid": "bd687e8f-7fb5-443a-9ca5-f7c182c2718f"
+    }
+  },
+  "outputs": {
+    "genes": {
+      "id": "3ce3e2281e4506fb3261cfb8780441ff",
+      "src": "hda",
+      "uuid": "aa848931-3884-4372-8997-f5acc2d7384f"
+    },
+    "hmmer": {
+      "id": "3ce3e2281e4506fb734d6e7c14574e0e",
+      "src": "hda",
+      "uuid": "8acdb854-d52d-4a2b-89d4-897cc9a19040"
+    },
+    "systems": {
+      "id": "3ce3e2281e4506fbb5eb79387e1ce0ea",
+      "src": "hda",
+      "uuid": "558f6ceb-14bc-4343-ab5b-87c53b3307d4"
+    },
+    "proteins": {
+      "id": "3ce3e2281e4506fb74735bc6c9557021",
+      "src": "hda",
+      "uuid": "1e6fc9c5-0d94-4e0a-94a0-354638bcaac2"
+    }
+  },
+  "output_collections": {},
+  "tool_stdout": "",
+  "tool_stderr": " 2024-10-03 11:12:00 | \u001b[32mINFO    \u001b[0m | \u001b[32mReceived file defense-finder-prot-sequences-input.fasta\u001b[0m\n 2024-10-03 11:12:00 | \u001b[32mINFO    \u001b[0m | \u001b[32mRunning DefenseFinder\u001b[0m\n 2024-10-03 11:12:23 | \u001b[32mINFO    \u001b[0m | \u001b[32mPost-treatment of the data\u001b[0m\nTraceback (most recent call last):\n  File \"/opt/gensoft/exe/defense-finder/1.2.2/bin/defense-finder\", line 33, in <module>\n    sys.exit(load_entry_point('mdmparis-defense-finder==1.2.2', 'console_scripts', 'defense-finder')())\n  File \"/opt/gensoft/exe/defense-finder/1.2.2/venv/lib/python3.8/site-packages/click/core.py\", line 1128, in __call__\n    return self.main(*args, **kwargs)\n  File \"/opt/gensoft/exe/defense-finder/1.2.2/venv/lib/python3.8/site-packages/click/core.py\", line 1053, in main\n    rv = self.invoke(ctx)\n  File \"/opt/gensoft/exe/defense-finder/1.2.2/venv/lib/python3.8/site-packages/click/core.py\", line 1659, in invoke\n    return _process_result(sub_ctx.command.invoke(sub_ctx))\n  File \"/opt/gensoft/exe/defense-finder/1.2.2/venv/lib/python3.8/site-packages/click/core.py\", line 1395, in invoke\n    return ctx.invoke(self.callback, **ctx.params)\n  File \"/opt/gensoft/exe/defense-finder/1.2.2/venv/lib/python3.8/site-packages/click/core.py\", line 754, in invoke\n    return __callback(*args, **kwargs)\n  File \"/opt/gensoft/exe/defense-finder/1.2.2/venv/lib/python3.8/site-packages/mdmparis_defense_finder-1.2.2-py3.8.egg/defense_finder_cli/main.py\", line 149, in run\n  File \"/opt/gensoft/exe/defense-finder/1.2.2/venv/lib/python3.8/site-packages/mdmparis_defense_finder-1.2.2-py3.8.egg/defense_finder_posttreat/__init__.py\", line 11, in run\n  File \"/opt/gensoft/exe/defense-finder/1.2.2/venv/lib/python3.8/site-packages/mdmparis_defense_finder-1.2.2-py3.8.egg/defense_finder_posttreat/best_solution.py\", line 13, in get\n  File \"/opt/gensoft/exe/defense-finder/1.2.2/venv/lib/python3.8/site-packages/mdmparis_defense_finder-1.2.2-py3.8.egg/defense_finder_posttreat/best_solution.py\", line 36, in parse_best_solution\nFileNotFoundError: [Errno 2] No such file or directory: '/pasteur/zeus/projets/p00/galaxy-prod/galaxy-dist/database/job_working_directory/005/239/5239741/working/out/defense-finder-tmp/DF_2/best_solution.tsv'\n",
+  "job_stdout": "",
+  "job_stderr": "/usr/share/misc/magic, 21623: Warning: `name\tpgpkey' entries can only be declared at top level\n/usr/share/misc/magic, 27403: Warning: using regular magic file `/usr/share/misc/bioinfo'\n/usr/share/misc/magic, 21623: Warning: `name\tpgpkey' entries can only be declared at top level\n/usr/share/misc/magic, 27403: Warning: using regular magic file `/usr/share/misc/bioinfo'\n",
+  "stderr": " 2024-10-03 11:12:00 | \u001b[32mINFO    \u001b[0m | \u001b[32mReceived file defense-finder-prot-sequences-input.fasta\u001b[0m\n 2024-10-03 11:12:00 | \u001b[32mINFO    \u001b[0m | \u001b[32mRunning DefenseFinder\u001b[0m\n 2024-10-03 11:12:23 | \u001b[32mINFO    \u001b[0m | \u001b[32mPost-treatment of the data\u001b[0m\nTraceback (most recent call last):\n  File \"/opt/gensoft/exe/defense-finder/1.2.2/bin/defense-finder\", line 33, in <module>\n    sys.exit(load_entry_point('mdmparis-defense-finder==1.2.2', 'console_scripts', 'defense-finder')())\n  File \"/opt/gensoft/exe/defense-finder/1.2.2/venv/lib/python3.8/site-packages/click/core.py\", line 1128, in __call__\n    return self.main(*args, **kwargs)\n  File \"/opt/gensoft/exe/defense-finder/1.2.2/venv/lib/python3.8/site-packages/click/core.py\", line 1053, in main\n    rv = self.invoke(ctx)\n  File \"/opt/gensoft/exe/defense-finder/1.2.2/venv/lib/python3.8/site-packages/click/core.py\", line 1659, in invoke\n    return _process_result(sub_ctx.command.invoke(sub_ctx))\n  File \"/opt/gensoft/exe/defense-finder/1.2.2/venv/lib/python3.8/site-packages/click/core.py\", line 1395, in invoke\n    return ctx.invoke(self.callback, **ctx.params)\n  File \"/opt/gensoft/exe/defense-finder/1.2.2/venv/lib/python3.8/site-packages/click/core.py\", line 754, in invoke\n    return __callback(*args, **kwargs)\n  File \"/opt/gensoft/exe/defense-finder/1.2.2/venv/lib/python3.8/site-packages/mdmparis_defense_finder-1.2.2-py3.8.egg/defense_finder_cli/main.py\", line 149, in run\n  File \"/opt/gensoft/exe/defense-finder/1.2.2/venv/lib/python3.8/site-packages/mdmparis_defense_finder-1.2.2-py3.8.egg/defense_finder_posttreat/__init__.py\", line 11, in run\n  File \"/opt/gensoft/exe/defense-finder/1.2.2/venv/lib/python3.8/site-packages/mdmparis_defense_finder-1.2.2-py3.8.egg/defense_finder_posttreat/best_solution.py\", line 13, in get\n  File \"/opt/gensoft/exe/defense-finder/1.2.2/venv/lib/python3.8/site-packages/mdmparis_defense_finder-1.2.2-py3.8.egg/defense_finder_posttreat/best_solution.py\", line 36, in parse_best_solution\nFileNotFoundError: [Errno 2] No such file or directory: '/pasteur/zeus/projets/p00/galaxy-prod/galaxy-dist/database/job_working_directory/005/239/5239741/working/out/defense-finder-tmp/DF_2/best_solution.tsv'\n\n/usr/share/misc/magic, 21623: Warning: `name\tpgpkey' entries can only be declared at top level\n/usr/share/misc/magic, 27403: Warning: using regular magic file `/usr/share/misc/bioinfo'\n/usr/share/misc/magic, 21623: Warning: `name\tpgpkey' entries can only be declared at top level\n/usr/share/misc/magic, 27403: Warning: using regular magic file `/usr/share/misc/bioinfo'\n",
+  "stdout": "",
+  "job_messages": [
+    {
+      "code_desc": "",
+      "desc": "Fatal error: Exit code 1 ()",
+      "error_level": 3,
+      "exit_code": 1,
+      "type": "exit_code"
+    }
+  ],
+  "dependencies": []
+}
+
+*/
