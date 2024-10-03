@@ -3,6 +3,7 @@ import type { $Fetch } from 'ofetch'
 import type { GalaxyVersion } from './types'
 
 import { $fetch } from 'ofetch'
+import { Datasets } from './datasets'
 import { Histories } from './histories'
 import { Invocations } from './invocations'
 import { Jobs } from './jobs'
@@ -59,5 +60,9 @@ export class GalaxyClient {
 
   public jobs(): Jobs {
     return Jobs.getInstance(this)
+  }
+
+  public datasets(): Datasets {
+    return Datasets.getInstance(this)
   }
 }

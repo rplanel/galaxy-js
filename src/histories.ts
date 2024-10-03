@@ -1,5 +1,5 @@
 import type { GalaxyClient } from './GalaxyClient'
-import type { GalaxyDataset, GalaxyHistoryDetailed, HDASummary } from './types'
+import type { GalaxyHistoryDetailed, GalaxyUploadedDataset, HDASummary } from './types'
 
 import { createError } from 'h3'
 import { getErrorMessage } from './errors'
@@ -89,7 +89,7 @@ export class Histories {
     }
   }
 
-  public async uploadFile(historyId: string, srcUrl: string): Promise<GalaxyDataset> {
+  public async uploadFile(historyId: string, srcUrl: string): Promise<GalaxyUploadedDataset> {
     const payload = {
       history_id: historyId,
       targets: [{
@@ -108,7 +108,7 @@ export class Histories {
       files: [],
     }
     try {
-      const galaxyDataset: GalaxyDataset = await this.#client.api(
+      const galaxyDataset: GalaxyUploadedDataset = await this.#client.api(
         'api/tools/fetch',
         {
           method: 'POST',
