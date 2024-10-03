@@ -295,6 +295,22 @@ interface GalaxyTool {
     inputs: GalaxyToolParameters[];
     outputs: GalaxyToolOutput[];
 }
+declare const JobTerminalStates: readonly ["deleted", "deleting", "error", "ok"];
+declare const JobStates: readonly ["deleted", "deleting", "error", "ok", "new", "resubmitted", "upload", "waiting", "queued", "running", "failed", "paused", "stop", "stopped", "skipped"];
+type JobState = typeof JobStates[number];
+interface GalaxyJob {
+    model_class: 'Job';
+    id: string;
+    history_id: string;
+    tool_id: string;
+    exit_code: number;
+    state: JobState;
+    create_time: string;
+    update_time: string;
+    params: Record<string, any>;
+    stdout: string;
+    stderr: string;
+}
 
 declare class Histories {
     #private;
@@ -316,6 +332,14 @@ declare class Invocations {
     private constructor();
     static getInstance(client: GalaxyClient): Invocations;
     getInvocation(invocationId: string): Promise<GalaxyInvocation>;
+}
+
+declare class Jobs {
+    #private;
+    private static instance;
+    private constructor();
+    static getInstance(client: GalaxyClient): Jobs;
+    getJob(jobId: string): Promise<GalaxyJob>;
 }
 
 declare class Tools {
@@ -348,6 +372,7 @@ declare class GalaxyClient {
     workflows(): Workflows;
     tools(): Tools;
     invocations(): Invocations;
+    jobs(): Jobs;
 }
 
-export { type Datamap, type DatasetState, DatasetStates, DatasetsTerminalStates, type ErrorWithMessage, type ErrorWithStatus, type GalaxyBooleanToolParameter, GalaxyClient, type GalaxyConditionalCase, type GalaxyConditionalParameter, type GalaxyDataToolParameter, type GalaxyDataset, type GalaxyFloatToolParameter, type GalaxyHistoryDetailed, type GalaxyInvocation, type GalaxySelectToolParameter, type GalaxyTool, type GalaxyToolOutput, type GalaxyToolParameters, type GalaxyVersion, type GalaxyWorkflow, type GalaxyWorkflowInput, type GalaxyWorkflowParameters, type HDASummary, type HistoryState, type HistoryStateDetails, type HistoryStateIds, type InvocationState, type SrcInput, type WorkflowInput, type WorkflowInputStep, type WorkflowStep };
+export { type Datamap, type DatasetState, DatasetStates, DatasetsTerminalStates, type ErrorWithMessage, type ErrorWithStatus, type GalaxyBooleanToolParameter, GalaxyClient, type GalaxyConditionalCase, type GalaxyConditionalParameter, type GalaxyDataToolParameter, type GalaxyDataset, type GalaxyFloatToolParameter, type GalaxyHistoryDetailed, type GalaxyInvocation, type GalaxyJob, type GalaxySelectToolParameter, type GalaxyTool, type GalaxyToolOutput, type GalaxyToolParameters, type GalaxyVersion, type GalaxyWorkflow, type GalaxyWorkflowInput, type GalaxyWorkflowParameters, type HDASummary, type HistoryState, type HistoryStateDetails, type HistoryStateIds, type InvocationState, type JobState, JobStates, JobTerminalStates, type SrcInput, type WorkflowInput, type WorkflowInputStep, type WorkflowStep };

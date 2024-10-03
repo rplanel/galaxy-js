@@ -758,36 +758,56 @@ const DatasetStates = [
   "setting_metadata",
   "deferred"
 ];
+const JobTerminalStates = [
+  "deleted",
+  "deleting",
+  "error",
+  "ok"
+];
+const JobStates = [
+  ...JobTerminalStates,
+  "new",
+  "resubmitted",
+  "upload",
+  "waiting",
+  "queued",
+  "running",
+  "failed",
+  "paused",
+  "stop",
+  "stopped",
+  "skipped"
+];
 
-var __defProp$4 = Object.defineProperty;
-var __defNormalProp$4 = (obj, key, value) => key in obj ? __defProp$4(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __publicField$4 = (obj, key, value) => {
-  __defNormalProp$4(obj, typeof key !== "symbol" ? key + "" : key, value);
+var __defProp$5 = Object.defineProperty;
+var __defNormalProp$5 = (obj, key, value) => key in obj ? __defProp$5(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __publicField$5 = (obj, key, value) => {
+  __defNormalProp$5(obj, typeof key !== "symbol" ? key + "" : key, value);
   return value;
 };
-var __accessCheck$4 = (obj, member, msg) => {
+var __accessCheck$5 = (obj, member, msg) => {
   if (!member.has(obj))
     throw TypeError("Cannot " + msg);
 };
-var __privateGet$3 = (obj, member, getter) => {
-  __accessCheck$4(obj, member, "read from private field");
+var __privateGet$4 = (obj, member, getter) => {
+  __accessCheck$5(obj, member, "read from private field");
   return getter ? getter.call(obj) : member.get(obj);
 };
-var __privateAdd$4 = (obj, member, value) => {
+var __privateAdd$5 = (obj, member, value) => {
   if (member.has(obj))
     throw TypeError("Cannot add the same private member more than once");
   member instanceof WeakSet ? member.add(obj) : member.set(obj, value);
 };
-var __privateSet$4 = (obj, member, value, setter) => {
-  __accessCheck$4(obj, member, "write to private field");
+var __privateSet$5 = (obj, member, value, setter) => {
+  __accessCheck$5(obj, member, "write to private field");
   setter ? setter.call(obj, value) : member.set(obj, value);
   return value;
 };
-var _client$3;
+var _client$4;
 const _Histories = class _Histories {
   constructor(client) {
-    __privateAdd$4(this, _client$3, void 0);
-    __privateSet$4(this, _client$3, client);
+    __privateAdd$5(this, _client$4, void 0);
+    __privateSet$5(this, _client$4, client);
   }
   static getInstance(client) {
     if (this.instance) {
@@ -798,7 +818,7 @@ const _Histories = class _Histories {
   }
   async createHistory(name) {
     try {
-      return await __privateGet$3(this, _client$3).api(
+      return await __privateGet$4(this, _client$4).api(
         "api/histories",
         {
           method: "POST",
@@ -815,7 +835,7 @@ const _Histories = class _Histories {
   }
   async deleteHistory(historyId) {
     try {
-      const galaxyHistory = await __privateGet$3(this, _client$3).api(`api/histories/${historyId}`, {
+      const galaxyHistory = await __privateGet$4(this, _client$4).api(`api/histories/${historyId}`, {
         method: "DELETE",
         body: { purge: true }
       });
@@ -829,7 +849,7 @@ const _Histories = class _Histories {
   }
   async getHistories() {
     try {
-      const galaxyHistories = await __privateGet$3(this, _client$3).api("api/histories", {
+      const galaxyHistories = await __privateGet$4(this, _client$4).api("api/histories", {
         method: "GET"
       });
       return galaxyHistories;
@@ -842,7 +862,7 @@ const _Histories = class _Histories {
   }
   async getHistory(historyId) {
     try {
-      const galaxyHistory = await __privateGet$3(this, _client$3).api(`api/histories/${historyId}`, {
+      const galaxyHistory = await __privateGet$4(this, _client$4).api(`api/histories/${historyId}`, {
         method: "GET"
       });
       return galaxyHistory;
@@ -872,7 +892,7 @@ const _Histories = class _Histories {
       files: []
     };
     try {
-      const galaxyDataset = await __privateGet$3(this, _client$3).api(
+      const galaxyDataset = await __privateGet$4(this, _client$4).api(
         "api/tools/fetch",
         {
           method: "POST",
@@ -892,7 +912,7 @@ const _Histories = class _Histories {
     let terminalState = false;
     while (!terminalState) {
       try {
-        const datasets = await __privateGet$3(this, _client$3).api(
+        const datasets = await __privateGet$4(this, _client$4).api(
           `api/histories/${historyId}/contents`,
           {
             method: "GET",
@@ -915,7 +935,7 @@ const _Histories = class _Histories {
   }
   async downloadDataset(historyId, datasetId) {
     try {
-      const dataset = await __privateGet$3(this, _client$3).api(
+      const dataset = await __privateGet$4(this, _client$4).api(
         `api/histories/${historyId}/contents/${datasetId}/display`,
         {
           method: "GET"
@@ -930,9 +950,68 @@ const _Histories = class _Histories {
     }
   }
 };
-_client$3 = new WeakMap();
-__publicField$4(_Histories, "instance");
+_client$4 = new WeakMap();
+__publicField$5(_Histories, "instance");
 let Histories = _Histories;
+
+var __defProp$4 = Object.defineProperty;
+var __defNormalProp$4 = (obj, key, value) => key in obj ? __defProp$4(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __publicField$4 = (obj, key, value) => {
+  __defNormalProp$4(obj, typeof key !== "symbol" ? key + "" : key, value);
+  return value;
+};
+var __accessCheck$4 = (obj, member, msg) => {
+  if (!member.has(obj))
+    throw TypeError("Cannot " + msg);
+};
+var __privateGet$3 = (obj, member, getter) => {
+  __accessCheck$4(obj, member, "read from private field");
+  return getter ? getter.call(obj) : member.get(obj);
+};
+var __privateAdd$4 = (obj, member, value) => {
+  if (member.has(obj))
+    throw TypeError("Cannot add the same private member more than once");
+  member instanceof WeakSet ? member.add(obj) : member.set(obj, value);
+};
+var __privateSet$4 = (obj, member, value, setter) => {
+  __accessCheck$4(obj, member, "write to private field");
+  setter ? setter.call(obj, value) : member.set(obj, value);
+  return value;
+};
+var _client$3;
+const _Invocations = class _Invocations {
+  constructor(client) {
+    __privateAdd$4(this, _client$3, void 0);
+    __privateSet$4(this, _client$3, client);
+  }
+  static getInstance(client) {
+    if (this.instance) {
+      return this.instance;
+    }
+    this.instance = new _Invocations(client);
+    return this.instance;
+  }
+  async getInvocation(invocationId) {
+    try {
+      const invocation = await __privateGet$3(this, _client$3).api(
+        `api/invocations/${invocationId}`,
+        {
+          method: "GET"
+        }
+      );
+      return invocation;
+    } catch (error) {
+      throw createError({
+        statusCode: getStatusCode(error),
+        statusMessage: `${getErrorMessage(error)}
+Unable to get invocation ${invocationId}`
+      });
+    }
+  }
+};
+_client$3 = new WeakMap();
+__publicField$4(_Invocations, "instance");
+let Invocations = _Invocations;
 
 var __defProp$3 = Object.defineProperty;
 var __defNormalProp$3 = (obj, key, value) => key in obj ? __defProp$3(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
@@ -959,7 +1038,7 @@ var __privateSet$3 = (obj, member, value, setter) => {
   return value;
 };
 var _client$2;
-const _Invocations = class _Invocations {
+const _Jobs = class _Jobs {
   constructor(client) {
     __privateAdd$3(this, _client$2, void 0);
     __privateSet$3(this, _client$2, client);
@@ -968,30 +1047,29 @@ const _Invocations = class _Invocations {
     if (this.instance) {
       return this.instance;
     }
-    this.instance = new _Invocations(client);
+    this.instance = new _Jobs(client);
     return this.instance;
   }
-  async getInvocation(invocationId) {
+  async getJob(jobId) {
     try {
-      const invocation = await __privateGet$2(this, _client$2).api(
-        `api/invocations/${invocationId}`,
+      const galaxyJob = await __privateGet$2(this, _client$2).api(
+        `api/jobs/${jobId}?full=true`,
         {
           method: "GET"
         }
       );
-      return invocation;
+      return galaxyJob;
     } catch (error) {
       throw createError({
-        statusCode: getStatusCode(error),
-        statusMessage: `${getErrorMessage(error)}
-Unable to get invocation ${invocationId}`
+        statusCode: 500,
+        statusMessage: getErrorMessage(error)
       });
     }
   }
 };
 _client$2 = new WeakMap();
-__publicField$3(_Invocations, "instance");
-let Invocations = _Invocations;
+__publicField$3(_Jobs, "instance");
+let Jobs = _Jobs;
 
 var __defProp$2 = Object.defineProperty;
 var __defNormalProp$2 = (obj, key, value) => key in obj ? __defProp$2(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
@@ -1202,9 +1280,12 @@ const _GalaxyClient = class _GalaxyClient {
   invocations() {
     return Invocations.getInstance(this);
   }
+  jobs() {
+    return Jobs.getInstance(this);
+  }
 };
 _apiKey = new WeakMap();
 __publicField(_GalaxyClient, "instance");
 let GalaxyClient = _GalaxyClient;
 
-export { DatasetStates, DatasetsTerminalStates, GalaxyClient };
+export { DatasetStates, DatasetsTerminalStates, GalaxyClient, JobStates, JobTerminalStates };
