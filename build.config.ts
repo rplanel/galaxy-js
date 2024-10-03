@@ -8,7 +8,7 @@ export default defineBuildConfig({
   clean: true,
   failOnWarn: false,
   rollup: {
-    emitCJS: false,
+    emitCJS: true,
     commonjs: false,
     // dts: {respectExternal: true}
   },
