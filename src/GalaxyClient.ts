@@ -5,6 +5,7 @@ import type { GalaxyVersion } from './types'
 import { $fetch } from 'ofetch'
 import { Histories } from './histories'
 import { Invocations } from './invocations'
+import { Jobs } from './jobs'
 import { Tools } from './tools'
 import { Workflows } from './workflows'
 
@@ -56,7 +57,7 @@ export class GalaxyClient {
     return Invocations.getInstance(this)
   }
 
-  public jobs(): Invocations {
-    return Invocations.getInstance(this)
+  public jobs(): Jobs {
+    return Jobs.getInstance(this)
   }
 }
