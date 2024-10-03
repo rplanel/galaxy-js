@@ -191,6 +191,110 @@ interface GalaxyDataset {
         state: DatasetState[];
     };
 }
+type GalaxyToolParameters = GalaxySelectToolParameter | GalaxyBooleanToolParameter | GalaxyDataToolParameter;
+interface BaseToolParameter {
+    name: string;
+    label: string;
+    argument: string | null;
+    help: string;
+    refresh_on_change: boolean;
+    optional: boolean;
+    hidden: boolean;
+    is_dynamic: boolean;
+}
+interface GalaxySelectToolParameter extends BaseToolParameter {
+    model_class: 'SelectToolParameter';
+    type: 'select';
+    value: string;
+    options: Array<[string, string, boolean]>;
+    display: string | null;
+    multiple: boolean;
+    textable: boolean;
+}
+interface GalaxyBooleanToolParameter extends BaseToolParameter {
+    model_class: 'BooleanToolParameter';
+    type: 'boolean';
+    value: string;
+    truevalue: string;
+    falsevalue: string;
+}
+interface GalaxyDataToolParameter extends BaseToolParameter {
+    model_class: 'DataToolParameter';
+    type: 'data';
+    value: {
+        values: {
+            id: string;
+            src: string;
+        }[];
+    };
+    extensions: string[];
+    edam: {
+        edam_formats: string[];
+        edam_data: string[];
+    };
+    multiple: boolean;
+    options: {
+        hda: {
+            id: string;
+            hid: number;
+            name: string;
+            src: 'hda';
+            keep: boolean;
+        }[];
+        hdca: {
+            id: string;
+            hid: number;
+            name: string;
+            src: 'hdca';
+            keep: boolean;
+        }[];
+    };
+}
+interface GalaxyFloatToolParameter extends BaseToolParameter {
+    model_class: 'FloatToolParameter';
+    type: 'float';
+    min: number;
+    max: number;
+    value: string;
+    area: boolean;
+}
+interface GalaxyConditionalCase {
+    model_class: string;
+    value: string;
+    inputs: GalaxyToolParameters[];
+}
+interface GalaxyConditionalParameter {
+    cases: GalaxyConditionalCase[];
+    model_class: 'Conditional';
+    name: string;
+    test_param: any;
+    type: 'conditional';
+}
+interface GalaxyToolOutput {
+    model_class: 'ToolOutput';
+    name: string;
+    format: string;
+    label: string;
+    hidden: boolean;
+    output_type: string;
+    count: number;
+}
+interface GalaxyTool {
+    model_class: 'Tool';
+    id: string;
+    version: string;
+    description: string;
+    edam_operations: string[];
+    edam_topics: string[];
+    tool_shed_repository: {
+        name: string;
+        owner: string;
+        changeset_revision: string;
+        tool_shed: string;
+    };
+    inputs: GalaxyToolParameters[];
+    outputs: GalaxyToolOutput[];
+}
 
 declare class Histories {
     #private;
@@ -219,7 +323,7 @@ declare class Tools {
     private static instance;
     private constructor();
     static getInstance(client: GalaxyClient): Tools;
-    getTool(toolId: string, version: string): Promise<GalaxyHistoryDetailed>;
+    getTool(toolId: string, version: string): Promise<GalaxyTool>;
 }
 
 declare class Workflows {
@@ -246,4 +350,4 @@ declare class GalaxyClient {
     invocations(): Invocations;
 }
 
-export { type Datamap, type DatasetState, DatasetStates, DatasetsTerminalStates, type ErrorWithMessage, type ErrorWithStatus, GalaxyClient, type GalaxyDataset, type GalaxyHistoryDetailed, type GalaxyInvocation, type GalaxyVersion, type GalaxyWorkflow, type GalaxyWorkflowInput, type GalaxyWorkflowParameters, type HDASummary, type HistoryState, type HistoryStateDetails, type HistoryStateIds, type InvocationState, type SrcInput, type WorkflowInput, type WorkflowInputStep, type WorkflowStep };
+export { type Datamap, type DatasetState, DatasetStates, DatasetsTerminalStates, type ErrorWithMessage, type ErrorWithStatus, type GalaxyBooleanToolParameter, GalaxyClient, type GalaxyConditionalCase, type GalaxyConditionalParameter, type GalaxyDataToolParameter, type GalaxyDataset, type GalaxyFloatToolParameter, type GalaxyHistoryDetailed, type GalaxyInvocation, type GalaxySelectToolParameter, type GalaxyTool, type GalaxyToolOutput, type GalaxyToolParameters, type GalaxyVersion, type GalaxyWorkflow, type GalaxyWorkflowInput, type GalaxyWorkflowParameters, type HDASummary, type HistoryState, type HistoryStateDetails, type HistoryStateIds, type InvocationState, type SrcInput, type WorkflowInput, type WorkflowInputStep, type WorkflowStep };
