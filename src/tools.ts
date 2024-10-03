@@ -1,5 +1,5 @@
 import type { GalaxyClient } from './GalaxyClient'
-import type { GalaxyHistoryDetailed } from './types'
+import type { GalaxyTool } from './types'
 import { createError } from 'h3'
 import { getErrorMessage } from './errors'
 
@@ -19,7 +19,7 @@ export class Tools {
     return this.instance
   }
 
-  public async getTool(toolId: string, version: string): Promise<GalaxyHistoryDetailed> {
+  public async getTool(toolId: string, version: string): Promise<GalaxyTool> {
     try {
       const galaxyTool = await this.#client.api(
         `api/tools/${toolId}?io_details=true&version=${version}`,
