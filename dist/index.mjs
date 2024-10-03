@@ -758,6 +758,31 @@ const DatasetStates = [
   "setting_metadata",
   "deferred"
 ];
+
+const HistoryStates = [
+  "new",
+  "upload",
+  "queued",
+  "running",
+  "ok",
+  "empty",
+  "error",
+  "paused",
+  "setting_metadata",
+  "failed_metadata",
+  "deferred",
+  "discarded"
+];
+
+const InvocationStates = [
+  "new",
+  "ready",
+  "scheduled",
+  "cancelled",
+  "cancelling",
+  "failed"
+];
+
 const JobTerminalStates = [
   "deleted",
   "deleting",
@@ -1288,4 +1313,4 @@ _apiKey = new WeakMap();
 __publicField(_GalaxyClient, "instance");
 let GalaxyClient = _GalaxyClient;
 
-export { DatasetStates, DatasetsTerminalStates, GalaxyClient, JobStates, JobTerminalStates };
+export { DatasetStates, DatasetsTerminalStates, GalaxyClient, HistoryStates, InvocationStates, JobStates, JobTerminalStates };

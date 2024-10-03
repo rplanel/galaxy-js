@@ -56,114 +56,9 @@ interface FetchResponse<T> extends Response {
 type Fetch = typeof globalThis.fetch;
 type FetchRequest = RequestInfo;
 
-interface GalaxyVersion {
-    version_major: string;
-    version_minor: string;
-}
-interface ErrorWithMessage {
-    message: string;
-}
-interface ErrorWithStatus {
-    statusCode: number;
-}
 declare const DatasetsTerminalStates: readonly ["ok", "empty", "error", "discarded", "failed_metadata"];
 declare const DatasetStates: readonly ["ok", "empty", "error", "discarded", "failed_metadata", "new", "upload", "queued", "running", "paused", "setting_metadata", "deferred"];
 type DatasetState = typeof DatasetStates[number];
-declare const InvocationStates: readonly ["new", "ready", "scheduled", "cancelled", "cancelling", "failed"];
-type InvocationState = typeof InvocationStates[number];
-declare const HistoryStates: readonly ["new", "upload", "queued", "running", "ok", "empty", "error", "paused", "setting_metadata", "failed_metadata", "deferred", "discarded"];
-type HistoryState = typeof HistoryStates[number];
-type HistoryStateIds = {
-    [K in typeof HistoryStates[number]]: string[];
-};
-type HistoryStateDetails = {
-    [K in typeof HistoryStates[number]]: number;
-};
-type Datamap = Record<`${number}`, {
-    id: string;
-    name: string;
-    storage_object_id?: string;
-}>;
-type SrcInput = 'hda' | 'ldda' | 'ld' | 'hdca';
-type GalaxyWorkflowInput = Record<string, {
-    id: string;
-    src: SrcInput;
-    uuid?: string;
-    dbid?: number;
-}>;
-type GalaxyWorkflowParameters = Record<string, string | boolean>;
-interface GalaxyHistoryDetailed {
-    model_class: 'History';
-    id: string;
-    name: string;
-    deleted: boolean;
-    purged: boolean;
-    published: boolean;
-    annotation: string;
-    tags: string[];
-    contents_url: string;
-    size: number;
-    user_id: string;
-    create_time: string;
-    update_time: string;
-    importable: boolean;
-    slug: string | null;
-    username_and_slug: string | null;
-    genome_build: string | null;
-    state: HistoryState;
-    state_ids: HistoryStateIds;
-    state_details: HistoryStateDetails;
-    hid_counter: number;
-    empty: boolean;
-}
-interface GalaxyInvocation {
-    id: string;
-    state: InvocationState;
-}
-interface GalaxyWorkflow {
-    model_class: string;
-    id: string;
-    name: string;
-    create_time: Date;
-    update_time: Date;
-    published: boolean;
-    importable: boolean;
-    deleted: boolean;
-    hidden: boolean;
-    tags: any[];
-    latest_workflow_uuid: string;
-    url: string;
-    owner: string;
-    inputs: {
-        [key: string]: WorkflowInput;
-    };
-    annotation: string;
-    license: string | null;
-    creator: string | null;
-    source_metadata: string | null;
-    steps: {
-        [key: string]: WorkflowStep;
-    };
-    version: number;
-}
-interface WorkflowInput {
-    label: string;
-    value: string;
-    uuid: string;
-}
-interface WorkflowStep {
-    id: number;
-    type: string;
-    tool_id: null | string;
-    tool_version: null | string;
-    annotation: null | string;
-    tool_inputs: Record<string, any>;
-    input_steps: Record<string, WorkflowInputStep>;
-}
-interface WorkflowInputStep {
-    source_step: number;
-    step_output: string;
-}
 interface HDASummary {
     id: string;
     name: string;
@@ -191,6 +86,64 @@ interface GalaxyDataset {
         state: DatasetState[];
     };
 }
+
+declare const HistoryStates: readonly ["new", "upload", "queued", "running", "ok", "empty", "error", "paused", "setting_metadata", "failed_metadata", "deferred", "discarded"];
+type HistoryState = typeof HistoryStates[number];
+type HistoryStateIds = {
+    [K in typeof HistoryStates[number]]: string[];
+};
+type HistoryStateDetails = {
+    [K in typeof HistoryStates[number]]: number;
+};
+interface GalaxyHistoryDetailed {
+    model_class: 'History';
+    id: string;
+    name: string;
+    deleted: boolean;
+    purged: boolean;
+    published: boolean;
+    annotation: string;
+    tags: string[];
+    contents_url: string;
+    size: number;
+    user_id: string;
+    create_time: string;
+    update_time: string;
+    importable: boolean;
+    slug: string | null;
+    username_and_slug: string | null;
+    genome_build: string | null;
+    state: HistoryState;
+    state_ids: HistoryStateIds;
+    state_details: HistoryStateDetails;
+    hid_counter: number;
+    empty: boolean;
+}
+
+declare const InvocationStates: readonly ["new", "ready", "scheduled", "cancelled", "cancelling", "failed"];
+type InvocationState = typeof InvocationStates[number];
+interface GalaxyInvocation {
+    id: string;
+    state: InvocationState;
+}
+
+declare const JobTerminalStates: readonly ["deleted", "deleting", "error", "ok"];
+declare const JobStates: readonly ["deleted", "deleting", "error", "ok", "new", "resubmitted", "upload", "waiting", "queued", "running", "failed", "paused", "stop", "stopped", "skipped"];
+type JobState = typeof JobStates[number];
+interface GalaxyJob {
+    model_class: 'Job';
+    id: string;
+    history_id: string;
+    tool_id: string;
+    exit_code: number;
+    state: JobState;
+    create_time: string;
+    update_time: string;
+    params: Record<string, any>;
+    stdout: string;
+    stderr: string;
+}
+
 type GalaxyToolParameters = GalaxySelectToolParameter | GalaxyBooleanToolParameter | GalaxyDataToolParameter;
 interface BaseToolParameter {
     name: string;
@@ -295,22 +248,75 @@ interface GalaxyTool {
     inputs: GalaxyToolParameters[];
     outputs: GalaxyToolOutput[];
 }
-declare const JobTerminalStates: readonly ["deleted", "deleting", "error", "ok"];
-declare const JobStates: readonly ["deleted", "deleting", "error", "ok", "new", "resubmitted", "upload", "waiting", "queued", "running", "failed", "paused", "stop", "stopped", "skipped"];
-type JobState = typeof JobStates[number];
-interface GalaxyJob {
-    model_class: 'Job';
+
+type SrcInput = 'hda' | 'ldda' | 'ld' | 'hdca';
+type GalaxyWorkflowInput = Record<string, {
     id: string;
-    history_id: string;
-    tool_id: string;
-    exit_code: number;
-    state: JobState;
-    create_time: string;
-    update_time: string;
-    params: Record<string, any>;
-    stdout: string;
-    stderr: string;
+    src: SrcInput;
+    uuid?: string;
+    dbid?: number;
+}>;
+interface WorkflowInput {
+    label: string;
+    value: string;
+    uuid: string;
 }
+type GalaxyWorkflowParameters = Record<string, string | boolean>;
+interface WorkflowInputStep {
+    source_step: number;
+    step_output: string;
+}
+interface WorkflowStep {
+    id: number;
+    type: string;
+    tool_id: null | string;
+    tool_version: null | string;
+    annotation: null | string;
+    tool_inputs: Record<string, any>;
+    input_steps: Record<string, WorkflowInputStep>;
+}
+interface GalaxyWorkflow {
+    model_class: string;
+    id: string;
+    name: string;
+    create_time: Date;
+    update_time: Date;
+    published: boolean;
+    importable: boolean;
+    deleted: boolean;
+    hidden: boolean;
+    tags: any[];
+    latest_workflow_uuid: string;
+    url: string;
+    owner: string;
+    inputs: {
+        [key: string]: WorkflowInput;
+    };
+    annotation: string;
+    license: string | null;
+    creator: string | null;
+    source_metadata: string | null;
+    steps: {
+        [key: string]: WorkflowStep;
+    };
+    version: number;
+}
+
+interface GalaxyVersion {
+    version_major: string;
+    version_minor: string;
+}
+interface ErrorWithMessage {
+    message: string;
+}
+interface ErrorWithStatus {
+    statusCode: number;
+}
+type Datamap = Record<`${number}`, {
+    id: string;
+    name: string;
+    storage_object_id?: string;
+}>;
 
 declare class Histories {
     #private;
@@ -375,4 +381,4 @@ declare class GalaxyClient {
     jobs(): Jobs;
 }
 
-export { type Datamap, type DatasetState, DatasetStates, DatasetsTerminalStates, type ErrorWithMessage, type ErrorWithStatus, type GalaxyBooleanToolParameter, GalaxyClient, type GalaxyConditionalCase, type GalaxyConditionalParameter, type GalaxyDataToolParameter, type GalaxyDataset, type GalaxyFloatToolParameter, type GalaxyHistoryDetailed, type GalaxyInvocation, type GalaxyJob, type GalaxySelectToolParameter, type GalaxyTool, type GalaxyToolOutput, type GalaxyToolParameters, type GalaxyVersion, type GalaxyWorkflow, type GalaxyWorkflowInput, type GalaxyWorkflowParameters, type HDASummary, type HistoryState, type HistoryStateDetails, type HistoryStateIds, type InvocationState, type JobState, JobStates, JobTerminalStates, type SrcInput, type WorkflowInput, type WorkflowInputStep, type WorkflowStep };
+export { type Datamap, type DatasetState, DatasetStates, DatasetsTerminalStates, type ErrorWithMessage, type ErrorWithStatus, type GalaxyBooleanToolParameter, GalaxyClient, type GalaxyConditionalCase, type GalaxyConditionalParameter, type GalaxyDataToolParameter, type GalaxyDataset, type GalaxyFloatToolParameter, type GalaxyHistoryDetailed, type GalaxyInvocation, type GalaxyJob, type GalaxySelectToolParameter, type GalaxyTool, type GalaxyToolOutput, type GalaxyToolParameters, type GalaxyVersion, type GalaxyWorkflow, type GalaxyWorkflowInput, type GalaxyWorkflowParameters, type HDASummary, type HistoryState, type HistoryStateDetails, type HistoryStateIds, HistoryStates, type InvocationState, InvocationStates, type JobState, JobStates, JobTerminalStates, type SrcInput, type WorkflowInput, type WorkflowInputStep, type WorkflowStep };
