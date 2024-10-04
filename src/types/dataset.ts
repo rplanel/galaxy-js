@@ -18,6 +18,7 @@ export const DatasetStates = [
 ] as const
 
 export type DatasetState = typeof DatasetStates[number]
+export type DatasetTerminalState = typeof DatasetsTerminalStates[number]
 
 export interface HDASummary {
   id: string
