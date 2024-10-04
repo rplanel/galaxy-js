@@ -1,61 +1,3 @@
-interface $Fetch {
-    <T = any, R extends ResponseType = "json">(request: FetchRequest, options?: FetchOptions<R>): Promise<MappedResponseType<R, T>>;
-    raw<T = any, R extends ResponseType = "json">(request: FetchRequest, options?: FetchOptions<R>): Promise<FetchResponse<MappedResponseType<R, T>>>;
-    native: Fetch;
-    create(defaults: FetchOptions): $Fetch;
-}
-interface FetchContext<T = any, R extends ResponseType = ResponseType> {
-    request: FetchRequest;
-    options: FetchOptions<R>;
-    response?: FetchResponse<T>;
-    error?: Error;
-}
-interface FetchOptions<R extends ResponseType = ResponseType> extends Omit<RequestInit, "body"> {
-    baseURL?: string;
-    body?: RequestInit["body"] | Record<string, any>;
-    ignoreResponseError?: boolean;
-    params?: Record<string, any>;
-    query?: Record<string, any>;
-    parseResponse?: (responseText: string) => any;
-    responseType?: R;
-    /**
-     * @experimental Set to "half" to enable duplex streaming.
-     * Will be automatically set to "half" when using a ReadableStream as body.
-     * https://fetch.spec.whatwg.org/#enumdef-requestduplex
-     */
-    duplex?: "half" | undefined;
-    /** timeout in milliseconds */
-    timeout?: number;
-    retry?: number | false;
-    /** Delay between retries in milliseconds. */
-    retryDelay?: number;
-    /** Default is [408, 409, 425, 429, 500, 502, 503, 504] */
-    retryStatusCodes?: number[];
-    onRequest?(context: FetchContext): Promise<void> | void;
-    onRequestError?(context: FetchContext & {
-        error: Error;
-    }): Promise<void> | void;
-    onResponse?(context: FetchContext & {
-        response: FetchResponse<R>;
-    }): Promise<void> | void;
-    onResponseError?(context: FetchContext & {
-        response: FetchResponse<R>;
-    }): Promise<void> | void;
-}
-interface ResponseMap {
-    blob: Blob;
-    text: string;
-    arrayBuffer: ArrayBuffer;
-    stream: ReadableStream<Uint8Array>;
-}
-type ResponseType = keyof ResponseMap | "json";
-type MappedResponseType<R extends ResponseType, JsonType = any> = R extends keyof ResponseMap ? ResponseMap[R] : JsonType;
-interface FetchResponse<T> extends Response {
-    _data?: T;
-}
-type Fetch = typeof globalThis.fetch;
-type FetchRequest = RequestInfo;
-
 declare const DatasetsTerminalStates: readonly ["ok", "empty", "error", "discarded", "failed_metadata"];
 declare const DatasetStates: readonly ["ok", "empty", "error", "discarded", "failed_metadata", "new", "upload", "queued", "running", "paused", "setting_metadata", "deferred"];
 type DatasetState = typeof DatasetStates[number];
@@ -335,6 +277,79 @@ type Datamap = Record<`${number}`, {
     storage_object_id?: string;
 }>;
 
+declare function isErrorWithMessage(error: unknown): error is ErrorWithMessage;
+declare function toErrorWithMessage(maybeError: unknown): ErrorWithMessage;
+declare function getErrorMessage(error: unknown): string;
+declare function isErrorWithStatus(error: unknown): error is ErrorWithStatus;
+declare function toErrorWithStatus(maybeError: unknown, fallback: number): ErrorWithStatus;
+declare function getStatusCode(error: unknown, fallback?: number): number;
+
+interface $Fetch {
+    <T = any, R extends ResponseType = "json">(request: FetchRequest, options?: FetchOptions<R>): Promise<MappedResponseType<R, T>>;
+    raw<T = any, R extends ResponseType = "json">(request: FetchRequest, options?: FetchOptions<R>): Promise<FetchResponse<MappedResponseType<R, T>>>;
+    native: Fetch;
+    create(defaults: FetchOptions): $Fetch;
+}
+interface FetchContext<T = any, R extends ResponseType = ResponseType> {
+    request: FetchRequest;
+    options: FetchOptions<R>;
+    response?: FetchResponse<T>;
+    error?: Error;
+}
+interface FetchOptions<R extends ResponseType = ResponseType> extends Omit<RequestInit, "body"> {
+    baseURL?: string;
+    body?: RequestInit["body"] | Record<string, any>;
+    ignoreResponseError?: boolean;
+    params?: Record<string, any>;
+    query?: Record<string, any>;
+    parseResponse?: (responseText: string) => any;
+    responseType?: R;
+    /**
+     * @experimental Set to "half" to enable duplex streaming.
+     * Will be automatically set to "half" when using a ReadableStream as body.
+     * https://fetch.spec.whatwg.org/#enumdef-requestduplex
+     */
+    duplex?: "half" | undefined;
+    /** timeout in milliseconds */
+    timeout?: number;
+    retry?: number | false;
+    /** Delay between retries in milliseconds. */
+    retryDelay?: number;
+    /** Default is [408, 409, 425, 429, 500, 502, 503, 504] */
+    retryStatusCodes?: number[];
+    onRequest?(context: FetchContext): Promise<void> | void;
+    onRequestError?(context: FetchContext & {
+        error: Error;
+    }): Promise<void> | void;
+    onResponse?(context: FetchContext & {
+        response: FetchResponse<R>;
+    }): Promise<void> | void;
+    onResponseError?(context: FetchContext & {
+        response: FetchResponse<R>;
+    }): Promise<void> | void;
+}
+interface ResponseMap {
+    blob: Blob;
+    text: string;
+    arrayBuffer: ArrayBuffer;
+    stream: ReadableStream<Uint8Array>;
+}
+type ResponseType = keyof ResponseMap | "json";
+type MappedResponseType<R extends ResponseType, JsonType = any> = R extends keyof ResponseMap ? ResponseMap[R] : JsonType;
+interface FetchResponse<T> extends Response {
+    _data?: T;
+}
+type Fetch = typeof globalThis.fetch;
+type FetchRequest = RequestInfo;
+
+declare class Datasets {
+    #private;
+    private static instance;
+    private constructor();
+    static getInstance(client: GalaxyClient): Datasets;
+    getDataset(datasetId: string): Promise<GalaxyDataset>;
+}
+
 declare class Histories {
     #private;
     private static instance;
@@ -383,14 +398,6 @@ declare class Workflows {
     invokeWorkflow(historyGalaxyId: string, workflowId: string, inputs: GalaxyWorkflowInput, parameters: GalaxyWorkflowParameters): Promise<GalaxyInvocation>;
 }
 
-declare class Datasets {
-    #private;
-    private static instance;
-    private constructor();
-    static getInstance(client: GalaxyClient): Datasets;
-    getDataset(datasetId: string): Promise<GalaxyDataset>;
-}
-
 declare class GalaxyClient {
     #private;
     private static instance;
@@ -407,4 +414,4 @@ declare class GalaxyClient {
     datasets(): Datasets;
 }
 
-export { type Datamap, type DatasetState, DatasetStates, DatasetsTerminalStates, type ErrorWithMessage, type ErrorWithStatus, type GalaxyBooleanToolParameter, GalaxyClient, type GalaxyConditionalCase, type GalaxyConditionalParameter, type GalaxyDataToolParameter, type GalaxyDataset, type GalaxyFloatToolParameter, type GalaxyHistoryDetailed, type GalaxyInvocation, type GalaxyJob, type GalaxySelectToolParameter, type GalaxyTool, type GalaxyToolOutput, type GalaxyToolParameters, type GalaxyUploadedDataset, type GalaxyVersion, type GalaxyWorkflow, type GalaxyWorkflowInput, type GalaxyWorkflowParameters, type HDASummary, type HistoryState, type HistoryStateDetails, type HistoryStateIds, HistoryStates, type InvocationState, InvocationStates, type JobState, JobStates, JobTerminalStates, type SrcInput, type WorkflowInput, type WorkflowInputStep, type WorkflowStep };
+export { type Datamap, type DatasetState, DatasetStates, DatasetsTerminalStates, type ErrorWithMessage, type ErrorWithStatus, type GalaxyBooleanToolParameter, GalaxyClient, type GalaxyConditionalCase, type GalaxyConditionalParameter, type GalaxyDataToolParameter, type GalaxyDataset, type GalaxyFloatToolParameter, type GalaxyHistoryDetailed, type GalaxyInvocation, type GalaxyJob, type GalaxySelectToolParameter, type GalaxyTool, type GalaxyToolOutput, type GalaxyToolParameters, type GalaxyUploadedDataset, type GalaxyVersion, type GalaxyWorkflow, type GalaxyWorkflowInput, type GalaxyWorkflowParameters, type HDASummary, type HistoryState, type HistoryStateDetails, type HistoryStateIds, HistoryStates, type InvocationState, InvocationStates, type JobState, JobStates, JobTerminalStates, type SrcInput, type WorkflowInput, type WorkflowInputStep, type WorkflowStep, getErrorMessage, getStatusCode, isErrorWithMessage, isErrorWithStatus, toErrorWithMessage, toErrorWithStatus };
