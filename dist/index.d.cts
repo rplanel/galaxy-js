@@ -364,7 +364,7 @@ declare class Histories {
     getHistory(historyId: string): Promise<GalaxyHistoryDetailed>;
     uploadFile(historyId: string, srcUrl: string): Promise<GalaxyUploadedDataset>;
     getListDatasets(historyId: string): Promise<HDASummary[] | undefined>;
-    downloadDataset(historyId: string, datasetId: string): Promise<unknown>;
+    downloadDataset(historyId: string, datasetId: string): Promise<Blob>;
 }
 
 declare class Invocations {
