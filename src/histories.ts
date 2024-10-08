@@ -159,7 +159,7 @@ export class Histories {
   public async downloadDataset(historyId: string, datasetId: string): Promise<unknown> {
     // /api/histories/{history_id}/contents/{history_content_id}/display
     try {
-      const dataset: HDASummary = await this.#client.api(
+      const dataset: Blob = await this.#client.api(
         `api/histories/${historyId}/contents/${datasetId}/display`,
         {
           method: 'GET',
