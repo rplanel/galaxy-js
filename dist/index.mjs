@@ -832,13 +832,16 @@ const HistoryStates = [
   "discarded"
 ];
 
+const InvocationTerminalStates = [
+  "cancelled",
+  "failed",
+  "scheduled"
+];
 const InvocationStates = [
+  ...InvocationTerminalStates,
   "new",
   "ready",
-  "scheduled",
-  "cancelled",
-  "cancelling",
-  "failed"
+  "cancelling"
 ];
 
 const JobTerminalStates = [
@@ -1374,4 +1377,4 @@ _apiKey = new WeakMap();
 __publicField(_GalaxyClient, "instance");
 let GalaxyClient = _GalaxyClient;
 
-export { DatasetStates, DatasetsTerminalStates, GalaxyClient, HistoryStates, InvocationStates, JobStates, JobTerminalStates, getErrorMessage, getStatusCode, isErrorWithMessage, isErrorWithStatus, toErrorWithMessage, toErrorWithStatus };
+export { DatasetStates, DatasetsTerminalStates, GalaxyClient, HistoryStates, InvocationStates, InvocationTerminalStates, JobStates, JobTerminalStates, getErrorMessage, getStatusCode, isErrorWithMessage, isErrorWithStatus, toErrorWithMessage, toErrorWithStatus };

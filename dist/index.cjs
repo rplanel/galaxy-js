@@ -834,13 +834,16 @@ const HistoryStates = [
   "discarded"
 ];
 
+const InvocationTerminalStates = [
+  "cancelled",
+  "failed",
+  "scheduled"
+];
 const InvocationStates = [
+  ...InvocationTerminalStates,
   "new",
   "ready",
-  "scheduled",
-  "cancelled",
-  "cancelling",
-  "failed"
+  "cancelling"
 ];
 
 const JobTerminalStates = [
@@ -1381,6 +1384,7 @@ exports.DatasetsTerminalStates = DatasetsTerminalStates;
 exports.GalaxyClient = GalaxyClient;
 exports.HistoryStates = HistoryStates;
 exports.InvocationStates = InvocationStates;
+exports.InvocationTerminalStates = InvocationTerminalStates;
 exports.JobStates = JobStates;
 exports.JobTerminalStates = JobTerminalStates;
 exports.getErrorMessage = getErrorMessage;
