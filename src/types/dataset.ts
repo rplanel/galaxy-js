@@ -60,7 +60,7 @@ export interface GalaxyDataset {
 }
 
 export interface GalaxyUploadedDataset {
-  outputs: { id: string }[]
+  outputs: { id: string, uuid: string }[]
   jobs: { id: string, state: DatasetState[] }
 }
 

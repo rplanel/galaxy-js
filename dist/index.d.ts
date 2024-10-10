@@ -41,6 +41,7 @@ interface GalaxyDataset {
 interface GalaxyUploadedDataset {
     outputs: {
         id: string;
+        uuid: string;
     }[];
     jobs: {
         id: string;
