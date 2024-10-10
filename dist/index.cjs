@@ -1257,6 +1257,22 @@ const _Workflows = class _Workflows {
   async getWorkflow(workflowId) {
     try {
       const galaxyWorkflow = await __privateGet(this, _client).api(
+        `api/workflows/${workflowId}`,
+        {
+          method: "GET"
+        }
+      );
+      return galaxyWorkflow;
+    } catch (error) {
+      throw createError({
+        statusCode: getStatusCode(error),
+        statusMessage: `Unable to get workflow ${workflowId}`
+      });
+    }
+  }
+  async exportWorkflow(workflowId) {
+    try {
+      const galaxyWorkflow = await __privateGet(this, _client).api(
         `api/workflows/${workflowId}/download`,
         {
           method: "GET"

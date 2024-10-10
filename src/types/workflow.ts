@@ -55,3 +55,36 @@ export interface GalaxyWorkflow {
   steps: { [key: string]: WorkflowStep }
   version: number
 }
+
+export interface WorkflowStepExport {
+  id: number
+  type: 'tool' | 'data_input' | 'parameter_input' | 'data_collection_input'
+  tool_id: null | string
+  tool_version: null | string
+  annotation: null | string
+  label: null | string
+  name: string
+  input_connections: Record<string, { id: number, output_name: string } | object>
+  inputs: Array<{ description: string, name: string }>
+  outputs: Array<{ name: string, type: string }>
+  tool_shed_repository: {
+    changeset_revision: string
+    name: string
+    owner: string
+    tool_shed: string
+  }
+  uuid: string
+  workflow_outputs: Array<{ label: string | null, output_name: string, uuid: string }>
+}
+
+export interface GalaxyWorkflowExport {
+  'a_galaxy_workflow': boolean
+  'format-version': string
+  'id': string
+  'name': string
+  'tags': any[]
+  'annotation': string
+  'steps': { [key: string]: WorkflowStepExport }
+  'version': number
+
+}
