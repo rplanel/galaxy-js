@@ -22,7 +22,7 @@ export class Workflows {
   public async getWorkflow(workflowId: string): Promise<GalaxyWorkflow> {
     try {
       const galaxyWorkflow = await this.#client.api(
-        `api/workflows/${workflowId}`,
+        `api/workflows/${workflowId}/download`,
         {
           method: 'GET',
         },

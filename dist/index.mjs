@@ -1255,7 +1255,7 @@ const _Workflows = class _Workflows {
   async getWorkflow(workflowId) {
     try {
       const galaxyWorkflow = await __privateGet(this, _client).api(
-        `api/workflows/${workflowId}`,
+        `api/workflows/${workflowId}/download`,
         {
           method: "GET"
         }
