@@ -36,6 +36,7 @@ interface GalaxyDataset {
     visible: boolean;
     history_id: string;
     accessible: boolean;
+    uuid: string;
 }
 interface GalaxyUploadedDataset {
     outputs: {
