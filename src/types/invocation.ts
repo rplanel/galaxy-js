@@ -40,7 +40,8 @@ export interface GalaxyInvocationIO {
 export interface GalaxyInvocationOuput {
 
 }
-export interface GalaxyInvocation {
+
+export interface GalaxyInvoke {
   model_class: 'WorkflowInvocation'
   id: string
   state: InvocationState
@@ -49,8 +50,9 @@ export interface GalaxyInvocation {
   workflow_id: string
   history_id: string
   uuid: string
+}
+export interface GalaxyInvocation extends GalaxyInvoke {
   steps: GalaxyInvocationStep[]
   inputs: Record<string, GalaxyInvocationIO>
   outputs: Record<string, GalaxyInvocationIO>
-
 }

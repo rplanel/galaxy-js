@@ -122,7 +122,7 @@ interface GalaxyInvocationIO {
 }
 interface GalaxyInvocationOuput {
 }
-interface GalaxyInvocation {
+interface GalaxyInvoke {
     model_class: 'WorkflowInvocation';
     id: string;
     state: InvocationState;
@@ -131,6 +131,8 @@ interface GalaxyInvocation {
     workflow_id: string;
     history_id: string;
     uuid: string;
+}
+interface GalaxyInvocation extends GalaxyInvoke {
     steps: GalaxyInvocationStep[];
     inputs: Record<string, GalaxyInvocationIO>;
     outputs: Record<string, GalaxyInvocationIO>;
@@ -474,7 +476,7 @@ declare class Workflows {
     getWorkflow(workflowId: string): Promise<GalaxyWorkflow>;
     exportWorkflow(workflowId: string): Promise<GalaxyWorkflowExport>;
     getWorkflows(): Promise<GalaxyWorkflow[]>;
-    invokeWorkflow(historyGalaxyId: string, workflowId: string, inputs: GalaxyWorkflowInput, parameters: GalaxyWorkflowParameters): Promise<GalaxyInvocation>;
+    invokeWorkflow(historyGalaxyId: string, workflowId: string, inputs: GalaxyWorkflowInput, parameters: GalaxyWorkflowParameters): Promise<GalaxyInvoke>;
 }
 
 declare class GalaxyClient {
@@ -493,4 +495,4 @@ declare class GalaxyClient {
     datasets(): Datasets;
 }
 
-export { type Datamap, type DatasetState, DatasetStates, type DatasetTerminalState, DatasetsTerminalStates, type ErrorWithMessage, type ErrorWithStatus, type GalaxyBooleanToolParameter, GalaxyClient, type GalaxyConditionalCase, type GalaxyConditionalParameter, type GalaxyDataToolParameter, type GalaxyDataset, type GalaxyFloatToolParameter, type GalaxyHistoryDetailed, type GalaxyInvocation, type GalaxyInvocationIO, type GalaxyInvocationOuput, type GalaxyInvocationStep, type GalaxyJob, type GalaxySelectToolParameter, type GalaxyTool, type GalaxyToolOutput, type GalaxyToolParameters, type GalaxyUploadedDataset, type GalaxyVersion, type GalaxyWorkflow, type GalaxyWorkflowExport, type GalaxyWorkflowInput, type GalaxyWorkflowParameters, type HDASummary, type HistoryState, type HistoryStateDetails, type HistoryStateIds, HistoryStates, type InvocationState, InvocationStates, type InvocationTerminalState, InvocationTerminalStates, type JobState, JobStates, JobTerminalStates, type SrcInput, type WorkflowInput, type WorkflowInputStep, type WorkflowStep, type WorkflowStepExport, getErrorMessage, getStatusCode, isErrorWithMessage, isErrorWithStatus, toErrorWithMessage, toErrorWithStatus };
+export { type Datamap, type DatasetState, DatasetStates, type DatasetTerminalState, DatasetsTerminalStates, type ErrorWithMessage, type ErrorWithStatus, type GalaxyBooleanToolParameter, GalaxyClient, type GalaxyConditionalCase, type GalaxyConditionalParameter, type GalaxyDataToolParameter, type GalaxyDataset, type GalaxyFloatToolParameter, type GalaxyHistoryDetailed, type GalaxyInvocation, type GalaxyInvocationIO, type GalaxyInvocationOuput, type GalaxyInvocationStep, type GalaxyInvoke, type GalaxyJob, type GalaxySelectToolParameter, type GalaxyTool, type GalaxyToolOutput, type GalaxyToolParameters, type GalaxyUploadedDataset, type GalaxyVersion, type GalaxyWorkflow, type GalaxyWorkflowExport, type GalaxyWorkflowInput, type GalaxyWorkflowParameters, type HDASummary, type HistoryState, type HistoryStateDetails, type HistoryStateIds, HistoryStates, type InvocationState, InvocationStates, type InvocationTerminalState, InvocationTerminalStates, type JobState, JobStates, JobTerminalStates, type SrcInput, type WorkflowInput, type WorkflowInputStep, type WorkflowStep, type WorkflowStepExport, getErrorMessage, getStatusCode, isErrorWithMessage, isErrorWithStatus, toErrorWithMessage, toErrorWithStatus };
