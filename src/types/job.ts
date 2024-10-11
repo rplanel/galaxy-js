@@ -21,6 +21,7 @@ export const JobStates = [
 ] as const
 
 export type JobState = typeof JobStates[number]
+export type JobTerminalState = typeof JobTerminalStates[number]
 
 export interface GalaxyJob {
   model_class: 'Job'
