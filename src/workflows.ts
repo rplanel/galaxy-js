@@ -21,7 +21,7 @@ export class Workflows {
 
   public async getWorkflow(workflowId: string): Promise<GalaxyWorkflow> {
     try {
-      const galaxyWorkflow = await this.#client.api(
+      const galaxyWorkflow = await this.#client.api<GalaxyWorkflow>(
         `api/workflows/${workflowId}`,
         {
           method: 'GET',
@@ -39,7 +39,7 @@ export class Workflows {
 
   public async exportWorkflow(workflowId: string): Promise<GalaxyWorkflowExport> {
     try {
-      const galaxyWorkflow = await this.#client.api(
+      const galaxyWorkflow = await this.#client.api<GalaxyWorkflowExport>(
         `api/workflows/${workflowId}/download`,
         {
           method: 'GET',
@@ -57,7 +57,7 @@ export class Workflows {
 
   public async getWorkflows(): Promise<GalaxyWorkflow[]> {
     try {
-      const galaxyWorkflows = await this.#client.api(
+      const galaxyWorkflows = await this.#client.api<GalaxyWorkflow[]>(
         'api/workflows',
         {
           method: 'GET',
@@ -75,7 +75,7 @@ export class Workflows {
 
   public async invokeWorkflow(historyGalaxyId: string, workflowId: string, inputs: GalaxyWorkflowInput, parameters: GalaxyWorkflowParameters): Promise<GalaxyInvoke> {
     try {
-      const galaxyInvocation = await this.#client.api(
+      const galaxyInvocation = await this.#client.api<GalaxyInvoke>(
         `api/workflows/${workflowId}/invocations`,
         {
           method: 'POST',
