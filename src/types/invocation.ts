@@ -53,6 +53,6 @@ export interface GalaxyInvoke {
 }
 export interface GalaxyInvocation extends GalaxyInvoke {
   steps: GalaxyInvocationStep[]
-  inputs: Record<string, GalaxyInvocationIO>
-  outputs: Record<string, GalaxyInvocationIO>
+  inputs?: Record<string, GalaxyInvocationIO>
+  outputs?: Record<string, GalaxyInvocationIO>
 }
