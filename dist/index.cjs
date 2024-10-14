@@ -868,10 +868,30 @@ const JobStates = [
 ];
 
 const GalaxyStates = [
-  ...DatasetStates,
-  ...HistoryStates,
-  ...InvocationStates,
-  ...JobStates
+  "new",
+  "upload",
+  "queued",
+  "running",
+  "ok",
+  "empty",
+  "error",
+  "paused",
+  "setting_metadata",
+  "failed_metadata",
+  "deferred",
+  "discarded",
+  "cancelled",
+  "failed",
+  "scheduled",
+  "ready",
+  "cancelling",
+  "deleted",
+  "deleting",
+  "resubmitted",
+  "waiting",
+  "stop",
+  "stopped",
+  "skipped"
 ];
 
 var __defProp$5 = Object.defineProperty;

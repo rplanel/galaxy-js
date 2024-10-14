@@ -357,7 +357,7 @@ type Datamap = Record<`${number}`, {
     name: string;
     storage_object_id?: string;
 }>;
-declare const GalaxyStates: readonly ["ok", "empty", "error", "discarded", "failed_metadata", "new", "upload", "queued", "running", "paused", "setting_metadata", "deferred", "new", "upload", "queued", "running", "ok", "empty", "error", "paused", "setting_metadata", "failed_metadata", "deferred", "discarded", ...string[], "new", "ready", "cancelling", "deleted", "deleting", "error", "ok", "new", "resubmitted", "upload", "waiting", "queued", "running", "failed", "paused", "stop", "stopped", "skipped"];
+declare const GalaxyStates: readonly ["new", "upload", "queued", "running", "ok", "empty", "error", "paused", "setting_metadata", "failed_metadata", "deferred", "discarded", "cancelled", "failed", "scheduled", "ready", "cancelling", "deleted", "deleting", "resubmitted", "waiting", "stop", "stopped", "skipped"];
 type GalaxyState = typeof GalaxyStates[number];
 
 declare function isErrorWithMessage(error: unknown): error is ErrorWithMessage;
