@@ -865,6 +865,13 @@ const JobStates = [
   "skipped"
 ];
 
+const GalaxyStates = [
+  ...DatasetStates,
+  ...HistoryStates,
+  ...InvocationStates,
+  ...JobStates
+];
+
 var __defProp$5 = Object.defineProperty;
 var __defNormalProp$5 = (obj, key, value) => key in obj ? __defProp$5(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
 var __publicField$5 = (obj, key, value) => {
@@ -1393,4 +1400,4 @@ _apiKey = new WeakMap();
 __publicField(_GalaxyClient, "instance");
 let GalaxyClient = _GalaxyClient;
 
-export { DatasetStates, DatasetsTerminalStates, GalaxyClient, HistoryStates, InvocationStates, InvocationTerminalStates, JobStates, JobTerminalStates, getErrorMessage, getStatusCode, isErrorWithMessage, isErrorWithStatus, toErrorWithMessage, toErrorWithStatus };
+export { DatasetStates, DatasetsTerminalStates, GalaxyClient, GalaxyStates, HistoryStates, InvocationStates, InvocationTerminalStates, JobStates, JobTerminalStates, getErrorMessage, getStatusCode, isErrorWithMessage, isErrorWithStatus, toErrorWithMessage, toErrorWithStatus };

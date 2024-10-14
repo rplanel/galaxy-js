@@ -867,6 +867,13 @@ const JobStates = [
   "skipped"
 ];
 
+const GalaxyStates = [
+  ...DatasetStates,
+  ...HistoryStates,
+  ...InvocationStates,
+  ...JobStates
+];
+
 var __defProp$5 = Object.defineProperty;
 var __defNormalProp$5 = (obj, key, value) => key in obj ? __defProp$5(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
 var __publicField$5 = (obj, key, value) => {
@@ -1398,6 +1405,7 @@ let GalaxyClient = _GalaxyClient;
 exports.DatasetStates = DatasetStates;
 exports.DatasetsTerminalStates = DatasetsTerminalStates;
 exports.GalaxyClient = GalaxyClient;
+exports.GalaxyStates = GalaxyStates;
 exports.HistoryStates = HistoryStates;
 exports.InvocationStates = InvocationStates;
 exports.InvocationTerminalStates = InvocationTerminalStates;
