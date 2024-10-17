@@ -772,10 +772,10 @@ const _Datasets = class _Datasets {
     this.instance = new _Datasets(client);
     return this.instance;
   }
-  async getDataset(datasetId) {
+  async getDataset(datasetId, historyId) {
     try {
       const galaxyDataset = await __privateGet$5(this, _client$5).api(
-        `api/datasets/${datasetId}`,
+        `api/histories/${historyId}/contents/${datasetId}`,
         {
           method: "GET"
         }

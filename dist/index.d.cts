@@ -430,7 +430,7 @@ declare class Datasets {
     private static instance;
     private constructor();
     static getInstance(client: GalaxyClient): Datasets;
-    getDataset(datasetId: string): Promise<GalaxyDataset>;
+    getDataset(datasetId: string, historyId: string): Promise<GalaxyDataset>;
 }
 
 declare class Histories {

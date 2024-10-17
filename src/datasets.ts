@@ -19,10 +19,10 @@ export class Datasets {
     return this.instance
   }
 
-  public async getDataset(datasetId: string): Promise<GalaxyDataset> {
+  public async getDataset(datasetId: string, historyId: string): Promise<GalaxyDataset> {
     try {
       const galaxyDataset = await this.#client.api(
-        `api/datasets/${datasetId}`,
+        `api/histories/${historyId}/contents/${datasetId}`,
         {
           method: 'GET',
         },
