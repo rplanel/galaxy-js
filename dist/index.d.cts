@@ -45,8 +45,8 @@ interface GalaxyUploadedDataset {
     }[];
     jobs: {
         id: string;
-        state: DatasetState[];
-    };
+        state: DatasetState;
+    }[];
 }
 
 declare const HistoryStates: readonly ["new", "upload", "queued", "running", "ok", "empty", "error", "paused", "setting_metadata", "failed_metadata", "deferred", "discarded"];
