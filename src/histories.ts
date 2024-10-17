@@ -159,6 +159,11 @@ export class Histories {
   public async downloadDataset(historyId: string, datasetId: string): Promise<Blob | undefined> {
     // /api/histories/{history_id}/contents/{history_content_id}/display
     try {
+      const datasetDescription = await this.#client.datasets().getDataset(datasetId, historyId)
+
+      if (datasetDescription.file_size === 0)
+        return new Blob([])
+
       const dataset: Blob = await this.#client.api(
         `api/histories/${historyId}/contents/${datasetId}/display`,
         {

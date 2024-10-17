@@ -1050,6 +1050,9 @@ const _Histories = class _Histories {
   }
   async downloadDataset(historyId, datasetId) {
     try {
+      const datasetDescription = await __privateGet$4(this, _client$4).datasets().getDataset(datasetId, historyId);
+      if (datasetDescription.file_size === 0)
+        return new Blob([]);
       const dataset = await __privateGet$4(this, _client$4).api(
         `api/histories/${historyId}/contents/${datasetId}/display`,
         {
