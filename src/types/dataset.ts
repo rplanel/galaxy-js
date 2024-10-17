@@ -58,6 +58,7 @@ export interface GalaxyDataset {
   history_id: string
   accessible: boolean
   uuid: string
+  metadata_comment_lines: number
 
 }
 
