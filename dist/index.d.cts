@@ -1,3 +1,21 @@
+declare const JobTerminalStates: readonly ["deleted", "deleting", "error", "ok"];
+declare const JobStates: readonly ["deleted", "deleting", "error", "ok", "new", "resubmitted", "upload", "waiting", "queued", "running", "failed", "paused", "stop", "stopped", "skipped"];
+type JobState = typeof JobStates[number];
+type JobTerminalState = typeof JobTerminalStates[number];
+interface GalaxyJob {
+    model_class: 'Job';
+    id: string;
+    history_id: string;
+    tool_id: string;
+    exit_code: number;
+    state: JobState;
+    create_time: string;
+    update_time: string;
+    params: Record<string, any>;
+    stdout: string;
+    stderr: string;
+}
+
 declare const DatasetsTerminalStates: readonly ["ok", "empty", "error", "discarded", "failed_metadata"];
 declare const DatasetStates: readonly ["ok", "empty", "error", "discarded", "failed_metadata", "new", "upload", "queued", "running", "paused", "setting_metadata", "deferred"];
 type DatasetState = typeof DatasetStates[number];
@@ -42,10 +60,29 @@ interface GalaxyUploadedDataset {
     outputs: {
         id: string;
         uuid: string;
+        hid: number;
+        file_ext: string;
+        model_class: 'HistoryDatasetAssociation';
+        name: string;
+        deleted: boolean;
+        purged: boolean;
+        visible: boolean;
+        state: DatasetState;
+        file_size: number;
+        create_time: string;
+        update_time: string;
+        history_id: string;
     }[];
     jobs: {
+        model_class: 'Job';
         id: string;
-        state: DatasetState;
+        state: JobState;
+        exit_code: number | null;
+        update_time: string;
+        create_time: string;
+        galaxy_version: string;
+        tool_id: '__DATA_FETCH__';
+        history_id: string;
     }[];
 }
 
@@ -80,24 +117,6 @@ interface GalaxyHistoryDetailed {
     state_details: HistoryStateDetails;
     hid_counter: number;
     empty: boolean;
-}
-
-declare const JobTerminalStates: readonly ["deleted", "deleting", "error", "ok"];
-declare const JobStates: readonly ["deleted", "deleting", "error", "ok", "new", "resubmitted", "upload", "waiting", "queued", "running", "failed", "paused", "stop", "stopped", "skipped"];
-type JobState = typeof JobStates[number];
-type JobTerminalState = typeof JobTerminalStates[number];
-interface GalaxyJob {
-    model_class: 'Job';
-    id: string;
-    history_id: string;
-    tool_id: string;
-    exit_code: number;
-    state: JobState;
-    create_time: string;
-    update_time: string;
-    params: Record<string, any>;
-    stdout: string;
-    stderr: string;
 }
 
 declare const InvocationTerminalStates: string[];

@@ -1,3 +1,5 @@
+import type { JobState } from './job'
+
 export const DatasetsTerminalStates = [
   'ok',
   'empty',
@@ -60,6 +62,31 @@ export interface GalaxyDataset {
 }
 
 export interface GalaxyUploadedDataset {
-  outputs: { id: string, uuid: string }[]
-  jobs: { id: string, state: DatasetState }[]
+  outputs: {
+    id: string
+    uuid: string
+    hid: number
+    file_ext: string
+    model_class: 'HistoryDatasetAssociation'
+    name: string
+    deleted: boolean
+    purged: boolean
+    visible: boolean
+    state: DatasetState
+    file_size: number
+    create_time: string
+    update_time: string
+    history_id: string
+  }[]
+  jobs: {
+    model_class: 'Job'
+    id: string
+    state: JobState
+    exit_code: number | null
+    update_time: string
+    create_time: string
+    galaxy_version: string
+    tool_id: '__DATA_FETCH__'
+    history_id: string
+  }[]
 }
