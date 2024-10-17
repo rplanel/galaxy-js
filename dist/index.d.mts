@@ -119,8 +119,8 @@ interface GalaxyHistoryDetailed {
     empty: boolean;
 }
 
-declare const InvocationTerminalStates: string[];
-declare const InvocationStates: readonly [...string[], "new", "ready", "cancelling"];
+declare const InvocationTerminalStates: readonly ["cancelled", "failed", "scheduled"];
+declare const InvocationStates: readonly ["cancelled", "failed", "scheduled", "new", "ready", "cancelling"];
 type InvocationState = typeof InvocationStates[number];
 type InvocationTerminalState = typeof InvocationTerminalStates[number];
 interface GalaxyInvocationStep {

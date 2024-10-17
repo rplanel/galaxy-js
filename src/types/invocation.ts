@@ -4,7 +4,7 @@ export const InvocationTerminalStates = [
   'cancelled',
   'failed',
   'scheduled',
-]
+] as const
 
 export const InvocationStates = [
   ...InvocationTerminalStates,
