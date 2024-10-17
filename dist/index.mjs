@@ -1056,8 +1056,11 @@ const _Histories = class _Histories {
       );
       return dataset;
     } catch (error) {
+      const statusCode = getStatusCode(error);
+      if (statusCode === 404)
+        return void 0;
       throw createError({
-        statusCode: 500,
+        statusCode,
         statusMessage: getErrorMessage(error)
       });
     }

@@ -2,7 +2,7 @@ import type { GalaxyClient } from './GalaxyClient'
 import type { GalaxyHistoryDetailed, GalaxyUploadedDataset, HDASummary } from './types'
 
 import { createError } from 'h3'
-import { getErrorMessage } from './errors'
+import { getErrorMessage, getStatusCode } from './errors'
 import { delay } from './helpers'
 
 import { DatasetsTerminalStates } from './types'
@@ -156,7 +156,7 @@ export class Histories {
     }
   }
 
-  public async downloadDataset(historyId: string, datasetId: string): Promise<Blob> {
+  public async downloadDataset(historyId: string, datasetId: string): Promise<Blob | undefined> {
     // /api/histories/{history_id}/contents/{history_content_id}/display
     try {
       const dataset: Blob = await this.#client.api(
@@ -168,8 +168,11 @@ export class Histories {
       return dataset
     }
     catch (error) {
+      const statusCode = getStatusCode(error)
+      if (statusCode === 404)
+        return undefined
       throw createError({
-        statusCode: 500,
+        statusCode,
         statusMessage: getErrorMessage(error),
       })
     }
