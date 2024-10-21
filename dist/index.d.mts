@@ -159,7 +159,7 @@ interface GalaxyInvocation extends GalaxyInvoke {
     outputs?: Record<string, GalaxyInvocationIO>;
 }
 
-type GalaxyToolParameters = GalaxySelectToolParameter | GalaxyBooleanToolParameter | GalaxyDataToolParameter;
+type GalaxyToolParameters = GalaxySelectToolParameter | GalaxyBooleanToolParameter | GalaxyDataToolParameter | GalaxyConditionalParameter;
 interface BaseToolParameter {
     name: string;
     label: string;
@@ -235,7 +235,7 @@ interface GalaxyConditionalParameter {
     cases: GalaxyConditionalCase[];
     model_class: 'Conditional';
     name: string;
-    test_param: any;
+    test_param: GalaxyToolParameters;
     type: 'conditional';
 }
 interface GalaxyToolOutput {

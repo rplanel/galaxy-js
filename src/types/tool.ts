@@ -1,4 +1,7 @@
-export type GalaxyToolParameters = GalaxySelectToolParameter | GalaxyBooleanToolParameter | GalaxyDataToolParameter
+export type GalaxyToolParameters = GalaxySelectToolParameter
+  | GalaxyBooleanToolParameter
+  | GalaxyDataToolParameter
+  | GalaxyConditionalParameter
 
 interface BaseToolParameter {
   name: string
@@ -79,7 +82,7 @@ export interface GalaxyConditionalParameter {
   cases: GalaxyConditionalCase[]
   model_class: 'Conditional'
   name: string
-  test_param: any
+  test_param: GalaxyToolParameters
   type: 'conditional'
 }
 
