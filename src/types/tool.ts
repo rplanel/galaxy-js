@@ -12,6 +12,10 @@ interface BaseToolParameter {
   optional: boolean
   hidden: boolean
   is_dynamic: boolean
+  component?: {
+    props: GalaxyToolParameters
+    instance: any
+  } | undefined
 }
 
 export interface GalaxySelectToolParameter extends BaseToolParameter {
