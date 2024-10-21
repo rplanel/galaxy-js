@@ -235,7 +235,7 @@ interface GalaxyConditionalParameter {
     cases: GalaxyConditionalCase[];
     model_class: 'Conditional';
     name: string;
-    test_param: GalaxyToolParameters;
+    test_param: Exclude<GalaxyToolParameters, GalaxyConditionalParameter>;
     type: 'conditional';
 }
 interface GalaxyToolOutput {
