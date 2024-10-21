@@ -241,6 +241,10 @@ interface GalaxyConditionalParameter {
     name: string;
     test_param: Exclude<GalaxyToolParameters, GalaxyConditionalParameter>;
     type: 'conditional';
+    component?: {
+        props: GalaxyToolParameters;
+        instance: any;
+    } | undefined;
 }
 interface GalaxyToolOutput {
     model_class: 'ToolOutput';

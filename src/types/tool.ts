@@ -88,6 +88,10 @@ export interface GalaxyConditionalParameter {
   name: string
   test_param: Exclude<GalaxyToolParameters, GalaxyConditionalParameter>
   type: 'conditional'
+  component?: {
+    props: GalaxyToolParameters
+    instance: any
+  } | undefined
 }
 
 export interface GalaxyToolOutput {
