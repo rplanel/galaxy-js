@@ -9,7 +9,7 @@ export interface GalaxyDataToolValue {
     src: string
   }[]
 }
-export type GalaxyToolParameterValue = string | GalaxyDataToolValue
+export type GalaxyToolParameterValue = string | string[] | GalaxyDataToolValue
 
 interface BaseToolParameter {
   name: string
@@ -29,7 +29,7 @@ interface BaseToolParameter {
 export interface GalaxySelectToolParameter extends BaseToolParameter {
   model_class: 'SelectToolParameter'
   type: 'select'
-  value: Extract<GalaxyToolParameterValue, string>
+  value: Exclude<GalaxyToolParameterValue, GalaxyDataToolValue>
   options: Array<[string, string, boolean]>
   display: string | null
   multiple: boolean
@@ -47,7 +47,7 @@ export interface GalaxyBooleanToolParameter extends BaseToolParameter {
 export interface GalaxyDataToolParameter extends BaseToolParameter {
   model_class: 'DataToolParameter'
   type: 'data'
-  value: Extract<GalaxyToolParameterValue, GalaxyDataToolValue >
+  value: Extract<GalaxyToolParameterValue, GalaxyDataToolValue>
   extensions: string[]
   edam: {
     edam_formats: string[]

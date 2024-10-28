@@ -166,7 +166,7 @@ interface GalaxyDataToolValue {
         src: string;
     }[];
 }
-type GalaxyToolParameterValue = string | GalaxyDataToolValue;
+type GalaxyToolParameterValue = string | string[] | GalaxyDataToolValue;
 interface BaseToolParameter {
     name: string;
     label: string;
@@ -184,7 +184,7 @@ interface BaseToolParameter {
 interface GalaxySelectToolParameter extends BaseToolParameter {
     model_class: 'SelectToolParameter';
     type: 'select';
-    value: Extract<GalaxyToolParameterValue, string>;
+    value: Exclude<GalaxyToolParameterValue, GalaxyDataToolValue>;
     options: Array<[string, string, boolean]>;
     display: string | null;
     multiple: boolean;
