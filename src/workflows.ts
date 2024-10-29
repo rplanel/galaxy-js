@@ -19,10 +19,10 @@ export class Workflows {
     return this.instance
   }
 
-  public async getWorkflow(workflowId: string, style: 'export' | 'run' | 'editor' | 'instance' = 'export'): Promise<GalaxyWorkflow> {
+  public async getWorkflow(workflowId: string): Promise<GalaxyWorkflow> {
     try {
       const galaxyWorkflow = await this.#client.api<GalaxyWorkflow>(
-        `api/workflows/${workflowId}?style=${style}`,
+        `api/workflows/${workflowId}`,
         {
           method: 'GET',
         },
@@ -37,10 +37,10 @@ export class Workflows {
     }
   }
 
-  public async exportWorkflow(workflowId: string): Promise<GalaxyWorkflowExport> {
+  public async exportWorkflow(workflowId: string, style: 'export' | 'run' | 'editor' | 'instance' = 'export'): Promise<GalaxyWorkflowExport> {
     try {
       const galaxyWorkflow = await this.#client.api<GalaxyWorkflowExport>(
-        `api/workflows/${workflowId}/download`,
+        `api/workflows/${workflowId}/download/?style=${style}`,
         {
           method: 'GET',
         },

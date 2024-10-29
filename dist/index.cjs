@@ -1287,10 +1287,10 @@ const _Workflows = class _Workflows {
     this.instance = new _Workflows(client);
     return this.instance;
   }
-  async getWorkflow(workflowId, style = "export") {
+  async getWorkflow(workflowId) {
     try {
       const galaxyWorkflow = await __privateGet(this, _client).api(
-        `api/workflows/${workflowId}?style=${style}`,
+        `api/workflows/${workflowId}`,
         {
           method: "GET"
         }
@@ -1303,10 +1303,10 @@ const _Workflows = class _Workflows {
       });
     }
   }
-  async exportWorkflow(workflowId) {
+  async exportWorkflow(workflowId, style = "export") {
     try {
       const galaxyWorkflow = await __privateGet(this, _client).api(
-        `api/workflows/${workflowId}/download`,
+        `api/workflows/${workflowId}/download/?style=${style}`,
         {
           method: "GET"
         }

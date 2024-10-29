@@ -516,8 +516,8 @@ declare class Workflows {
     private static instance;
     private constructor();
     static getInstance(client: GalaxyClient): Workflows;
-    getWorkflow(workflowId: string, style?: 'export' | 'run' | 'editor' | 'instance'): Promise<GalaxyWorkflow>;
-    exportWorkflow(workflowId: string): Promise<GalaxyWorkflowExport>;
+    getWorkflow(workflowId: string): Promise<GalaxyWorkflow>;
+    exportWorkflow(workflowId: string, style?: 'export' | 'run' | 'editor' | 'instance'): Promise<GalaxyWorkflowExport>;
     getWorkflows(): Promise<GalaxyWorkflow[]>;
     invokeWorkflow(historyGalaxyId: string, workflowId: string, inputs: GalaxyWorkflowInput, parameters: GalaxyWorkflowParameters): Promise<GalaxyInvoke>;
 }
