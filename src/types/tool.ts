@@ -26,7 +26,7 @@ interface BaseToolParameter {
   } | undefined
 }
 
-export interface GalaxySelectToolParameter extends BaseToolParameter {
+export interface GalaxyBaseSelectToolParameter extends BaseToolParameter {
   model_class: 'SelectToolParameter'
   type: Extract<GalaxyToolParameterType, 'select'>
   value: Exclude<GalaxyToolParameterValue, GalaxyDataToolValue>
@@ -35,6 +35,18 @@ export interface GalaxySelectToolParameter extends BaseToolParameter {
   multiple: boolean
   textable: boolean
 }
+
+export interface GalaxyUniqueSelectToolParameter extends GalaxyBaseSelectToolParameter {
+  multiple: false
+  value: Extract<GalaxyToolParameterValue, string>
+}
+
+export interface GalaxyMultipleSelectToolParameter extends GalaxyBaseSelectToolParameter {
+  multiple: true
+  value: Extract<GalaxyToolParameterValue, string[]>
+}
+
+export type GalaxySelectToolParameter = GalaxyUniqueSelectToolParameter | GalaxyMultipleSelectToolParameter
 
 export interface GalaxyBooleanToolParameter extends BaseToolParameter {
   model_class: 'BooleanToolParameter'
