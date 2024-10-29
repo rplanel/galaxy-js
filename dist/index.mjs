@@ -1285,10 +1285,10 @@ const _Workflows = class _Workflows {
     this.instance = new _Workflows(client);
     return this.instance;
   }
-  async getWorkflow(workflowId) {
+  async getWorkflow(workflowId, style = "export") {
     try {
       const galaxyWorkflow = await __privateGet(this, _client).api(
-        `api/workflows/${workflowId}`,
+        `api/workflows/${workflowId}?style=${style}`,
         {
           method: "GET"
         }
