@@ -348,10 +348,7 @@ interface WorkflowStepExport {
         id: number;
         output_name: string;
     } | object>;
-    inputs: Array<{
-        description: string;
-        name: string;
-    }>;
+    inputs: Array<GalaxyToolParameters>;
     outputs: Array<{
         name: string;
         type: string;

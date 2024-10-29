@@ -1313,7 +1313,8 @@ const _Workflows = class _Workflows {
     } catch (error) {
       throw createError({
         statusCode: getStatusCode(error),
-        statusMessage: `Unable to get workflow ${workflowId}`
+        // statusMessage: `Unable to get workflow ${workflowId}`,
+        statusMessage: getErrorMessage(error)
       });
     }
   }

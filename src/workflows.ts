@@ -45,12 +45,14 @@ export class Workflows {
           method: 'GET',
         },
       )
+
       return galaxyWorkflow
     }
     catch (error) {
       throw createError({
         statusCode: getStatusCode(error),
-        statusMessage: `Unable to get workflow ${workflowId}`,
+        // statusMessage: `Unable to get workflow ${workflowId}`,
+        statusMessage: getErrorMessage(error),
       })
     }
   }
