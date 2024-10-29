@@ -40,7 +40,7 @@ export class Workflows {
   public async exportWorkflow(workflowId: string, style: 'export' | 'run' | 'editor' | 'instance' = 'export'): Promise<GalaxyWorkflowExport> {
     try {
       const galaxyWorkflow = await this.#client.api<GalaxyWorkflowExport>(
-        `api/workflows/${workflowId}/download/?style=${style}`,
+        `api/workflows/${workflowId}/download?style=${style}`,
         {
           method: 'GET',
         },

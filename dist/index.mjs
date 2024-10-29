@@ -1304,7 +1304,7 @@ const _Workflows = class _Workflows {
   async exportWorkflow(workflowId, style = "export") {
     try {
       const galaxyWorkflow = await __privateGet(this, _client).api(
-        `api/workflows/${workflowId}/download/?style=${style}`,
+        `api/workflows/${workflowId}/download?style=${style}`,
         {
           method: "GET"
         }
