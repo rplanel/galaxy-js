@@ -36,7 +36,7 @@ export interface GalaxyBaseSelectToolParameter extends BaseToolParameter {
   textable: boolean
 }
 
-export interface GalaxyUniqueSelectToolParameter extends GalaxyBaseSelectToolParameter {
+export interface GalaxySingleSelectToolParameter extends GalaxyBaseSelectToolParameter {
   multiple: false
   value: Extract<GalaxyToolParameterValue, string>
 }
@@ -46,7 +46,7 @@ export interface GalaxyMultipleSelectToolParameter extends GalaxyBaseSelectToolP
   value: Extract<GalaxyToolParameterValue, string[]>
 }
 
-export type GalaxySelectToolParameter = GalaxyUniqueSelectToolParameter | GalaxyMultipleSelectToolParameter
+export type GalaxySelectToolParameter = GalaxySingleSelectToolParameter | GalaxyMultipleSelectToolParameter
 
 export interface GalaxyBooleanToolParameter extends BaseToolParameter {
   model_class: 'BooleanToolParameter'
@@ -106,7 +106,7 @@ export interface GalaxyConditionalParameter {
   cases: GalaxyConditionalCase[]
   model_class: 'Conditional'
   name: string
-  test_param: Extract<GalaxySelectToolParameter, GalaxyUniqueSelectToolParameter | GalaxyBooleanToolParameter>
+  test_param: Extract<GalaxySelectToolParameter, GalaxySingleSelectToolParameter | GalaxyBooleanToolParameter>
   type: Extract<GalaxyToolParameterType, 'conditional'>
   component?: {
     props: GalaxyToolParameters
