@@ -64,7 +64,17 @@ export interface WorkflowStepExport {
   step_label: string
   step_name: string
   step_version: string
+}
 
+export interface WorkflowStepDataExport extends WorkflowStepExport {
+  step_type: 'data_input'
+}
+// parameter_input
+export interface WorkflowStepParameterExport extends WorkflowStepExport {
+  step_type: 'parameter_input'
+}
+export interface WorkflowStepDataCollectionExport extends WorkflowStepExport {
+  step_type: 'data_collection_input'
 }
 
 export interface WorkflowStepToolExport extends WorkflowStepExport {
