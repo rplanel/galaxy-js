@@ -45,7 +45,6 @@ export class Workflows {
           method: 'GET',
         },
       )
-
       return galaxyWorkflow
     }
     catch (error) {

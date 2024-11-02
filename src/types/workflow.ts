@@ -1,4 +1,4 @@
-import type { GalaxyToolParameters } from './tool'
+import type { GalaxyToolParameters, GalaxyToolParameterValue } from './tool'
 
 export type SrcInput = 'hda' | 'ldda' | 'ld' | 'hdca'
 
@@ -59,24 +59,51 @@ export interface GalaxyWorkflow {
 }
 
 export interface WorkflowStepExport {
-  id: number
-  type: 'tool' | 'data_input' | 'parameter_input' | 'data_collection_input'
-  tool_id: null | string
-  tool_version: null | string
-  annotation: null | string
+  annotation?: string
+  step_index: number
+  step_label: string
+  step_name: string
+  step_version: string
+
+}
+
+export interface WorkflowStepToolExport extends WorkflowStepExport {
+  id: string
+  step_type: 'tool'
+  action: string
+  citation: boolean
+  creator: null | string
+  display: boolean
+  description: string
+  edam_operations: string[]
+  edam_topics: string[]
+  enctype: string
+  help: string
+  history_id: string
+  is_workflow_compatible: boolean
+  license: string | null
+  model_class: string
   label: null | string
   name: string
-  input_connections: Record<string, { id: number, output_name: string } | object>
-  inputs: Array<GalaxyToolParameters>
-  outputs: Array<{ name: string, type: string }>
+  requirements: { name: string, version: string | null }[]
+  sharable_url: string
   tool_shed_repository: {
     changeset_revision: string
     name: string
     owner: string
     tool_shed: string
   }
-  uuid: string
-  workflow_outputs: Array<{ label: string | null, output_name: string, uuid: string }>
+  version: string
+  versions: string[]
+  inputs: GalaxyToolParameters[]
+  state_inputs: Record<
+    string,
+    Record<
+      string,
+      GalaxyToolParameterValue
+    >
+  >
+
 }
 
 export interface GalaxyWorkflowExport {
