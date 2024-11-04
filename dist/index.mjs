@@ -1306,7 +1306,10 @@ const _Workflows = class _Workflows {
       const galaxyWorkflow = await __privateGet(this, _client).api(
         `api/workflows/${workflowId}/download?style=${style}`,
         {
-          method: "GET"
+          method: "GET",
+          headers: {
+            "Set-Cookie": "galaxysession=3ce3e2281e4506fb8d06aaf66b4e135a1742756765c73e655cae0e9e30d43269418c28273c9e1920; expires=Sun, 02-Feb-2025 14:07:03 GMT; HttpOnly; Max-Age=7776000; Path=/; Secure; Version=1"
+          }
         }
       );
       return galaxyWorkflow;
@@ -1388,8 +1391,7 @@ const _GalaxyClient = class _GalaxyClient {
       headers: {
         "x-api-key": apiKey,
         "accept": "application/json, text/plain, */*",
-        "Content-Type": "application/json",
-        "Cookie": "galaxysession=3ce3e2281e4506fbe4936bff63a07ce914566a86c755c5791fb3ba914dbf34ee95e8321549bd90a3"
+        "Content-Type": "application/json"
       },
       baseURL: this.url
     });

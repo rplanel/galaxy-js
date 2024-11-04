@@ -23,7 +23,6 @@ export class GalaxyClient {
         'x-api-key': apiKey,
         'accept': 'application/json, text/plain, */*',
         'Content-Type': 'application/json',
-        'Cookie': 'galaxysession=3ce3e2281e4506fbe4936bff63a07ce914566a86c755c5791fb3ba914dbf34ee95e8321549bd90a3',
       },
 
       baseURL: this.url,

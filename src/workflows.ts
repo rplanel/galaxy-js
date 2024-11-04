@@ -43,6 +43,9 @@ export class Workflows {
         `api/workflows/${workflowId}/download?style=${style}`,
         {
           method: 'GET',
+          headers: {
+            'Set-Cookie': 'galaxysession=3ce3e2281e4506fb8d06aaf66b4e135a1742756765c73e655cae0e9e30d43269418c28273c9e1920; expires=Sun, 02-Feb-2025 14:07:03 GMT; HttpOnly; Max-Age=7776000; Path=/; Secure; Version=1',
+          },
         },
       )
       return galaxyWorkflow
