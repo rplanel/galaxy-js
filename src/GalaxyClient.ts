@@ -1,7 +1,6 @@
 // import type { $Fetch } from 'nitropack'
 import type { $Fetch } from 'ofetch'
 import type { GalaxyVersion } from './types'
-
 import { $fetch } from 'ofetch'
 import { Datasets } from './datasets'
 import { Histories } from './histories'
@@ -24,7 +23,9 @@ export class GalaxyClient {
         'x-api-key': apiKey,
         'accept': 'application/json, text/plain, */*',
         'Content-Type': 'application/json',
+        'Cookie': 'galaxysession=3ce3e2281e4506fb5d1455b3a2f405b9575788704745930e9740ee41808187ceef17fb24a6b062bc',
       },
+
       baseURL: this.url,
     })
     this.api = fetch
