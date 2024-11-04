@@ -1308,10 +1308,11 @@ const _Workflows = class _Workflows {
       const galaxyWorkflow = await __privateGet(this, _client).api(
         `api/workflows/${workflowId}/download?style=${style}`,
         {
-          method: "GET",
+          credentials: "include",
           headers: {
-            "Set-Cookie": "galaxysession=3ce3e2281e4506fb8d06aaf66b4e135a1742756765c73e655cae0e9e30d43269418c28273c9e1920; expires=Sun, 02-Feb-2025 14:07:03 GMT; HttpOnly; Max-Age=7776000; Path=/; Secure; Version=1"
-          }
+            accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+          },
+          method: "GET"
         }
       );
       return galaxyWorkflow;
