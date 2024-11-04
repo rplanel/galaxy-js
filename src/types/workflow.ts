@@ -58,28 +58,31 @@ export interface GalaxyWorkflow {
   version: number
 }
 
+export type WorkflowStepExportType = 'data_input' | 'parameter_input' | 'data_collection_input' | 'tool'
+
 export interface WorkflowStepExport {
   annotation?: string
   step_index: number
   step_label: string
   step_name: string
   step_version: string
+  step_type: WorkflowStepExportType
 }
 
 export interface WorkflowStepDataExport extends WorkflowStepExport {
-  step_type: 'data_input'
+  step_type: Extract<WorkflowStepExportType, 'data_input'>
 }
 // parameter_input
 export interface WorkflowStepParameterExport extends WorkflowStepExport {
-  step_type: 'parameter_input'
+  step_type: Extract<WorkflowStepExportType, 'parameter_input'>
 }
 export interface WorkflowStepDataCollectionExport extends WorkflowStepExport {
-  step_type: 'data_collection_input'
+  step_type: Extract<WorkflowStepExportType, 'data_collection_input'>
 }
 
 export interface WorkflowStepToolExport extends WorkflowStepExport {
   id: string
-  step_type: 'tool'
+  step_type: Extract<WorkflowStepExportType, 'tool'>
   action: string
   citation: boolean
   creator: null | string

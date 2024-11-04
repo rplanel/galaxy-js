@@ -336,25 +336,27 @@ interface GalaxyWorkflow {
     };
     version: number;
 }
+type WorkflowStepExportType = 'data_input' | 'parameter_input' | 'data_collection_input' | 'tool';
 interface WorkflowStepExport {
     annotation?: string;
     step_index: number;
     step_label: string;
     step_name: string;
     step_version: string;
+    step_type: WorkflowStepExportType;
 }
 interface WorkflowStepDataExport extends WorkflowStepExport {
-    step_type: 'data_input';
+    step_type: Extract<WorkflowStepExportType, 'data_input'>;
 }
 interface WorkflowStepParameterExport extends WorkflowStepExport {
-    step_type: 'parameter_input';
+    step_type: Extract<WorkflowStepExportType, 'parameter_input'>;
 }
 interface WorkflowStepDataCollectionExport extends WorkflowStepExport {
-    step_type: 'data_collection_input';
+    step_type: Extract<WorkflowStepExportType, 'data_collection_input'>;
 }
 interface WorkflowStepToolExport extends WorkflowStepExport {
     id: string;
-    step_type: 'tool';
+    step_type: Extract<WorkflowStepExportType, 'tool'>;
     action: string;
     citation: boolean;
     creator: null | string;
@@ -555,4 +557,4 @@ declare class GalaxyClient {
     datasets(): Datasets;
 }
 
-export { type Datamap, type DatasetState, DatasetStates, type DatasetTerminalState, DatasetsTerminalStates, type ErrorWithMessage, type ErrorWithStatus, type GalaxyBaseSelectToolParameter, type GalaxyBooleanToolParameter, GalaxyClient, type GalaxyConditionalCase, type GalaxyConditionalParameter, type GalaxyDataToolParameter, type GalaxyDataToolValue, type GalaxyDataset, type GalaxyFloatToolParameter, type GalaxyHistoryDetailed, type GalaxyInvocation, type GalaxyInvocationIO, type GalaxyInvocationOuput, type GalaxyInvocationStep, type GalaxyInvoke, type GalaxyJob, type GalaxyMultipleSelectToolParameter, type GalaxySelectToolParameter, type GalaxySingleSelectToolParameter, type GalaxyState, GalaxyStates, type GalaxyTool, type GalaxyToolOutput, type GalaxyToolParameterType, type GalaxyToolParameterValue, type GalaxyToolParameters, type GalaxyUploadedDataset, type GalaxyVersion, type GalaxyWorkflow, type GalaxyWorkflowExport, type GalaxyWorkflowInput, type GalaxyWorkflowParameters, type HDASummary, type HistoryState, type HistoryStateDetails, type HistoryStateIds, HistoryStates, type InvocationState, InvocationStates, type InvocationTerminalState, InvocationTerminalStates, type JobState, JobStates, type JobTerminalState, JobTerminalStates, type SrcInput, type WorkflowInput, type WorkflowInputStep, type WorkflowStep, type WorkflowStepDataCollectionExport, type WorkflowStepDataExport, type WorkflowStepExport, type WorkflowStepParameterExport, type WorkflowStepToolExport, getErrorMessage, getStatusCode, isErrorWithMessage, isErrorWithStatus, toErrorWithMessage, toErrorWithStatus };
+export { type Datamap, type DatasetState, DatasetStates, type DatasetTerminalState, DatasetsTerminalStates, type ErrorWithMessage, type ErrorWithStatus, type GalaxyBaseSelectToolParameter, type GalaxyBooleanToolParameter, GalaxyClient, type GalaxyConditionalCase, type GalaxyConditionalParameter, type GalaxyDataToolParameter, type GalaxyDataToolValue, type GalaxyDataset, type GalaxyFloatToolParameter, type GalaxyHistoryDetailed, type GalaxyInvocation, type GalaxyInvocationIO, type GalaxyInvocationOuput, type GalaxyInvocationStep, type GalaxyInvoke, type GalaxyJob, type GalaxyMultipleSelectToolParameter, type GalaxySelectToolParameter, type GalaxySingleSelectToolParameter, type GalaxyState, GalaxyStates, type GalaxyTool, type GalaxyToolOutput, type GalaxyToolParameterType, type GalaxyToolParameterValue, type GalaxyToolParameters, type GalaxyUploadedDataset, type GalaxyVersion, type GalaxyWorkflow, type GalaxyWorkflowExport, type GalaxyWorkflowInput, type GalaxyWorkflowParameters, type HDASummary, type HistoryState, type HistoryStateDetails, type HistoryStateIds, HistoryStates, type InvocationState, InvocationStates, type InvocationTerminalState, InvocationTerminalStates, type JobState, JobStates, type JobTerminalState, JobTerminalStates, type SrcInput, type WorkflowInput, type WorkflowInputStep, type WorkflowStep, type WorkflowStepDataCollectionExport, type WorkflowStepDataExport, type WorkflowStepExport, type WorkflowStepExportType, type WorkflowStepParameterExport, type WorkflowStepToolExport, getErrorMessage, getStatusCode, isErrorWithMessage, isErrorWithStatus, toErrorWithMessage, toErrorWithStatus };
