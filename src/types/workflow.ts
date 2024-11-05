@@ -12,6 +12,8 @@ export type GalaxyWorkflowInput = Record<
   }
 >
 
+export type WorkflowStepType = 'data_input' | 'parameter_input' | 'data_collection_input' | 'tool'
+
 export interface WorkflowInput {
   label: string
   value: string
@@ -27,7 +29,7 @@ export interface WorkflowInputStep {
 
 export interface WorkflowStep {
   id: number
-  type: string
+  type: WorkflowStepType
   tool_id: null | string
   tool_version: null | string
   annotation: null | string
@@ -58,31 +60,29 @@ export interface GalaxyWorkflow {
   version: number
 }
 
-export type WorkflowStepExportType = 'data_input' | 'parameter_input' | 'data_collection_input' | 'tool'
-
 export interface WorkflowStepExport {
   annotation?: string
   step_index: number
   step_label: string
   step_name: string
   step_version: string
-  step_type: WorkflowStepExportType
+  step_type: WorkflowStepType
 }
 
 export interface WorkflowStepDataExport extends WorkflowStepExport {
-  step_type: Extract<WorkflowStepExportType, 'data_input'>
+  step_type: Extract<WorkflowStepType, 'data_input'>
 }
 // parameter_input
 export interface WorkflowStepParameterExport extends WorkflowStepExport {
-  step_type: Extract<WorkflowStepExportType, 'parameter_input'>
+  step_type: Extract<WorkflowStepType, 'parameter_input'>
 }
 export interface WorkflowStepDataCollectionExport extends WorkflowStepExport {
-  step_type: Extract<WorkflowStepExportType, 'data_collection_input'>
+  step_type: Extract<WorkflowStepType, 'data_collection_input'>
 }
 
 export interface WorkflowStepToolExport extends WorkflowStepExport {
   id: string
-  step_type: Extract<WorkflowStepExportType, 'tool'>
+  step_type: Extract<WorkflowStepType, 'tool'>
   action: string
   citation: boolean
   creator: null | string
