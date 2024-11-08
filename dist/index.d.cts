@@ -159,7 +159,7 @@ interface GalaxyInvocation extends GalaxyInvoke {
     outputs?: Record<string, GalaxyInvocationIO>;
 }
 
-type GalaxyToolParameters = GalaxySelectToolParameter | GalaxyBooleanToolParameter | GalaxyDataToolParameter | GalaxyConditionalParameter;
+type GalaxyToolParameters = GalaxySelectToolParameter | GalaxyBooleanToolParameter | GalaxyDataToolParameter | GalaxyConditionalParameter | GalaxyIntegerToolParameter | GalaxyFloatToolParameter;
 interface GalaxyDataToolValue {
     values: {
         id: string;
@@ -167,7 +167,7 @@ interface GalaxyDataToolValue {
     }[];
 }
 type GalaxyToolParameterValue = string | string[] | GalaxyDataToolValue;
-type GalaxyToolParameterType = 'select' | 'boolean' | 'data' | 'float' | 'conditional';
+type GalaxyToolParameterType = 'select' | 'boolean' | 'data' | 'float' | 'conditional' | 'integer';
 interface BaseToolParameter {
     name: string;
     label: string;
@@ -240,6 +240,14 @@ interface GalaxyFloatToolParameter extends BaseToolParameter {
     min: number;
     max: number;
     value: Extract<GalaxyToolParameterValue, string>;
+    area: boolean;
+}
+interface GalaxyIntegerToolParameter extends BaseToolParameter {
+    model_class: 'IntegerToolParameter';
+    type: Extract<GalaxyToolParameterType, 'integer'>;
+    min: number;
+    max: number;
+    value: string;
     area: boolean;
 }
 interface GalaxyConditionalCase {
@@ -557,4 +565,4 @@ declare class GalaxyClient {
     datasets(): Datasets;
 }
 
-export { type Datamap, type DatasetState, DatasetStates, type DatasetTerminalState, DatasetsTerminalStates, type ErrorWithMessage, type ErrorWithStatus, type GalaxyBaseSelectToolParameter, type GalaxyBooleanToolParameter, GalaxyClient, type GalaxyConditionalCase, type GalaxyConditionalParameter, type GalaxyDataToolParameter, type GalaxyDataToolValue, type GalaxyDataset, type GalaxyFloatToolParameter, type GalaxyHistoryDetailed, type GalaxyInvocation, type GalaxyInvocationIO, type GalaxyInvocationOuput, type GalaxyInvocationStep, type GalaxyInvoke, type GalaxyJob, type GalaxyMultipleSelectToolParameter, type GalaxySelectToolParameter, type GalaxySingleSelectToolParameter, type GalaxyState, GalaxyStates, type GalaxyTool, type GalaxyToolOutput, type GalaxyToolParameterType, type GalaxyToolParameterValue, type GalaxyToolParameters, type GalaxyUploadedDataset, type GalaxyVersion, type GalaxyWorkflow, type GalaxyWorkflowExport, type GalaxyWorkflowInput, type GalaxyWorkflowParameters, type HDASummary, type HistoryState, type HistoryStateDetails, type HistoryStateIds, HistoryStates, type InvocationState, InvocationStates, type InvocationTerminalState, InvocationTerminalStates, type JobState, JobStates, type JobTerminalState, JobTerminalStates, type SrcInput, type WorkflowInput, type WorkflowInputStep, type WorkflowStep, type WorkflowStepDataCollectionExport, type WorkflowStepDataExport, type WorkflowStepExport, type WorkflowStepParameterExport, type WorkflowStepToolExport, type WorkflowStepType, getErrorMessage, getStatusCode, isErrorWithMessage, isErrorWithStatus, toErrorWithMessage, toErrorWithStatus };
+export { type Datamap, type DatasetState, DatasetStates, type DatasetTerminalState, DatasetsTerminalStates, type ErrorWithMessage, type ErrorWithStatus, type GalaxyBaseSelectToolParameter, type GalaxyBooleanToolParameter, GalaxyClient, type GalaxyConditionalCase, type GalaxyConditionalParameter, type GalaxyDataToolParameter, type GalaxyDataToolValue, type GalaxyDataset, type GalaxyFloatToolParameter, type GalaxyHistoryDetailed, type GalaxyIntegerToolParameter, type GalaxyInvocation, type GalaxyInvocationIO, type GalaxyInvocationOuput, type GalaxyInvocationStep, type GalaxyInvoke, type GalaxyJob, type GalaxyMultipleSelectToolParameter, type GalaxySelectToolParameter, type GalaxySingleSelectToolParameter, type GalaxyState, GalaxyStates, type GalaxyTool, type GalaxyToolOutput, type GalaxyToolParameterType, type GalaxyToolParameterValue, type GalaxyToolParameters, type GalaxyUploadedDataset, type GalaxyVersion, type GalaxyWorkflow, type GalaxyWorkflowExport, type GalaxyWorkflowInput, type GalaxyWorkflowParameters, type HDASummary, type HistoryState, type HistoryStateDetails, type HistoryStateIds, HistoryStates, type InvocationState, InvocationStates, type InvocationTerminalState, InvocationTerminalStates, type JobState, JobStates, type JobTerminalState, JobTerminalStates, type SrcInput, type WorkflowInput, type WorkflowInputStep, type WorkflowStep, type WorkflowStepDataCollectionExport, type WorkflowStepDataExport, type WorkflowStepExport, type WorkflowStepParameterExport, type WorkflowStepToolExport, type WorkflowStepType, getErrorMessage, getStatusCode, isErrorWithMessage, isErrorWithStatus, toErrorWithMessage, toErrorWithStatus };

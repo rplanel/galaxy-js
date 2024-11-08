@@ -2,6 +2,8 @@ export type GalaxyToolParameters = GalaxySelectToolParameter
   | GalaxyBooleanToolParameter
   | GalaxyDataToolParameter
   | GalaxyConditionalParameter
+  | GalaxyIntegerToolParameter
+  | GalaxyFloatToolParameter
 
 export interface GalaxyDataToolValue {
   values: {
@@ -10,7 +12,7 @@ export interface GalaxyDataToolValue {
   }[]
 }
 export type GalaxyToolParameterValue = string | string[] | GalaxyDataToolValue
-export type GalaxyToolParameterType = 'select' | 'boolean' | 'data' | 'float' | 'conditional'
+export type GalaxyToolParameterType = 'select' | 'boolean' | 'data' | 'float' | 'conditional' | 'integer'
 interface BaseToolParameter {
   name: string
   label: string
@@ -93,6 +95,15 @@ export interface GalaxyFloatToolParameter extends BaseToolParameter {
   value: Extract<GalaxyToolParameterValue, string>
   area: boolean
 
+}
+
+export interface GalaxyIntegerToolParameter extends BaseToolParameter {
+  model_class: 'IntegerToolParameter'
+  type: Extract<GalaxyToolParameterType, 'integer'>
+  min: number
+  max: number
+  value: string
+  area: boolean
 }
 
 export interface GalaxyConditionalCase {
