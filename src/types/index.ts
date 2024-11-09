@@ -1,3 +1,8 @@
+/**
+ * The vast majority of the type are from
+ * https://github.com/galaxyproject/galaxy/tree/dev/client/src/api/schema
+ */
+
 export interface GalaxyVersion {
   version_major: string
   version_minor: string

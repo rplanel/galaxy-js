@@ -16,11 +16,11 @@ declare const JobStates: readonly ["deleted", "deleting", "error", "ok", "new", 
 type JobState = typeof JobStates[number];
 type JobTerminalState = typeof JobTerminalStates[number];
 /**
-      * JobSourceType
-      * @description Available types of job sources (model classes) that produce dataset collections.
-      * @enum {string}
-      */
-type JobSourceType = "Job" | "ImplicitCollectionJobs" | "WorkflowInvocation";
+ * JobSourceType
+ * @description Available types of job sources (model classes) that produce dataset collections.
+ * @enum {string}
+ */
+type JobSourceType = 'Job' | 'ImplicitCollectionJobs' | 'WorkflowInvocation';
 interface JobMetric {
     /**
      * Name
@@ -2018,6 +2018,10 @@ interface GalaxyWorkflowExport {
     'version': number;
 }
 
+/**
+ * The vast majority of the type are from
+ * https://github.com/galaxyproject/galaxy/tree/dev/client/src/api/schema
+ */
 interface GalaxyVersion {
     version_major: string;
     version_minor: string;
