@@ -44,9 +44,44 @@ export const GalaxyStates = [
 
 export type GalaxyState = typeof GalaxyStates[number]
 
+export interface Hyperlink {
+  /**
+   * Href
+   * @description The URL of the linked document.
+   */
+  href: string
+  /**
+   * Target
+   * @description Specifies where to open the linked document.
+   */
+  target: string
+  /**
+   * Text
+   * @description The text placeholder for the link.
+   */
+  text: string
+}
+
+export interface MetadataFile {
+  /**
+   * Download URL
+   * @description The URL to download this item from the server.
+   */
+  download_url: string
+  /**
+   * File Type
+   * @description TODO
+   */
+  file_type: string
+};
+
 export * from './dataset'
+export * from './display'
 export * from './history'
 export * from './invocation'
 export * from './job'
+export * from './tag'
 export * from './tool'
+export * from './utils'
+export * from './visualization'
 export * from './workflow'

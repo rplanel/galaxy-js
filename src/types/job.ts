@@ -25,6 +25,12 @@ export const JobStates = [
 export type JobState = typeof JobStates[number]
 export type JobTerminalState = typeof JobTerminalStates[number]
 
+/**
+ * JobSourceType
+ * @description Available types of job sources (model classes) that produce dataset collections.
+ * @enum {string}
+ */
+export type JobSourceType = 'Job' | 'ImplicitCollectionJobs' | 'WorkflowInvocation'
 export interface JobMetric {
   /**
    * Name
