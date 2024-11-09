@@ -1,5 +1,5 @@
 import type { GalaxyClient } from './GalaxyClient'
-import type { GalaxyJob } from './types'
+import type { ShowFullJobResponse } from './types'
 import { createError } from 'h3'
 import { getErrorMessage } from './errors'
 
@@ -19,7 +19,7 @@ export class Jobs {
     return this.instance
   }
 
-  public async getJob(jobId: string): Promise<GalaxyJob> {
+  public async getJob(jobId: string): Promise<ShowFullJobResponse> {
     try {
       const galaxyJob = await this.#client.api(
         `api/jobs/${jobId}?full=true`,

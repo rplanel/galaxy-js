@@ -19,6 +19,8 @@ export const DatasetStates = [
   'deferred',
 ] as const
 
+export type DataItemSourceType = 'hda' | 'ldda' | 'hdca' | 'dce' | 'dc'
+
 export type DatasetState = typeof DatasetStates[number]
 export type DatasetTerminalState = typeof DatasetsTerminalStates[number]
 
@@ -40,6 +42,21 @@ export interface HDASummary {
   extension: string
   purged: boolean
 }
+
+export interface EncodedHdcaSourceId {
+  /**
+   * Id
+   * @example 0123456789ABCDEF
+   */
+  id: string
+  /**
+   * Source
+   * @description The source of this dataset, which in the case of the model can only be `hdca`.
+   * @constant
+   * @enum {string}
+   */
+  src: 'hdca'
+};
 
 export interface GalaxyDataset {
   dataset_id: string
