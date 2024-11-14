@@ -1868,7 +1868,7 @@ interface GalaxyConditionalParameter {
     cases: GalaxyConditionalCase[];
     model_class: 'Conditional';
     name: string;
-    test_param: Extract<GalaxySelectToolParameter, GalaxySingleSelectToolParameter | GalaxyBooleanToolParameter>;
+    test_param: Extract<GalaxyToolParameters, Extract<GalaxySelectToolParameter, GalaxySingleSelectToolParameter> | GalaxyBooleanToolParameter>;
     type: Extract<GalaxyToolParameterType, 'conditional'>;
     component?: {
         props: GalaxyToolParameters;
