@@ -1928,6 +1928,25 @@ interface WorkflowStep {
     tool_inputs: Record<string, any>;
     input_steps: Record<string, WorkflowInputStep>;
 }
+interface GalaxyWorkflowsItem {
+    model_class: string;
+    id: string;
+    name: string;
+    create_time: Date;
+    update_time: Date;
+    published: boolean;
+    importable: boolean;
+    deleted: boolean;
+    hidden: boolean;
+    tags: TagCollection;
+    latest_workflow_uuid: string;
+    annotation: string | null;
+    url: string;
+    owner: string;
+    source_metadata: string | null;
+    number_of_steps: number;
+    show_in_tool_panel: boolean;
+}
 interface GalaxyWorkflow {
     model_class: string;
     id: string;
@@ -1945,7 +1964,7 @@ interface GalaxyWorkflow {
     inputs: {
         [key: string]: WorkflowInput;
     };
-    annotation: string;
+    annotation: string | null;
     license: string | null;
     creator: string | null;
     source_metadata: string | null;
@@ -2187,7 +2206,7 @@ declare class Workflows {
     static getInstance(client: GalaxyClient): Workflows;
     getWorkflow(workflowId: string): Promise<GalaxyWorkflow>;
     exportWorkflow(workflowId: string, style?: 'export' | 'run' | 'editor' | 'instance'): Promise<GalaxyWorkflowExport>;
-    getWorkflows(): Promise<GalaxyWorkflow[]>;
+    getWorkflows(): Promise<GalaxyWorkflowsItem[]>;
     invokeWorkflow(historyGalaxyId: string, workflowId: string, inputs: GalaxyWorkflowInput, parameters: GalaxyWorkflowParameters): Promise<GalaxyInvoke>;
 }
 
@@ -2207,4 +2226,4 @@ declare class GalaxyClient {
     datasets(): Datasets;
 }
 
-export { type DCESummary, type DCEType, type DCObject, type DataItemSourceType, type Datamap, type DatasetCollectionPopulatedState, type DatasetHash, type DatasetPermissions, type DatasetSource, type DatasetSourceType, type DatasetState, DatasetStates, type DatasetTerminalState, type DatasetValidatedState, DatasetsTerminalStates, type DisplayApp, type EncodedDatasetJobInfo, type EncodedHdcaSourceId, type ErrorWithMessage, type ErrorWithStatus, type GalaxyBaseSelectToolParameter, type GalaxyBooleanToolParameter, GalaxyClient, type GalaxyConditionalCase, type GalaxyConditionalParameter, type GalaxyDataToolParameter, type GalaxyDataToolValue, type GalaxyDataset, type GalaxyFloatToolParameter, type GalaxyHistoryDetailed, type GalaxyIntegerToolParameter, type GalaxyInvocation, type GalaxyInvocationIO, type GalaxyInvocationOuput, type GalaxyInvocationStep, type GalaxyInvoke, type GalaxyMultipleSelectToolParameter, type GalaxySelectToolParameter, type GalaxySingleSelectToolParameter, type GalaxyState, GalaxyStates, type GalaxyTool, type GalaxyToolOutput, type GalaxyToolParameterType, type GalaxyToolParameterValue, type GalaxyToolParameters, type GalaxyUploadedDataset, type GalaxyVersion, type GalaxyWorkflow, type GalaxyWorkflowExport, type GalaxyWorkflowInput, type GalaxyWorkflowParameters, type HDACustom, type HDADetailed, type HDAInaccessible, type HDAObject, type HDASummary, type HDCACustom, type HDCADetailed, type HDCASummary, type HDCJobStateSummary, type HashFunctionNames, type HistoryContentsResult, type HistoryState, type HistoryStateDetails, type HistoryStateIds, HistoryStates, type Hyperlink, type InvocationState, InvocationStates, type InvocationTerminalState, InvocationTerminalStates, type JobMetric, type JobSourceType, type JobState, JobStates, type JobTerminalState, JobTerminalStates, type MetadataFile, type ShowFullJobResponse, type SrcInput, type TagCollection, type Visualization, type WorkflowInput, type WorkflowInputStep, type WorkflowStep, type WorkflowStepDataCollectionExport, type WorkflowStepDataExport, type WorkflowStepExport, type WorkflowStepParameterExport, type WorkflowStepToolExport, type WorkflowStepType, getErrorMessage, getStatusCode, isErrorWithMessage, isErrorWithStatus, toErrorWithMessage, toErrorWithStatus };
+export { type DCESummary, type DCEType, type DCObject, type DataItemSourceType, type Datamap, type DatasetCollectionPopulatedState, type DatasetHash, type DatasetPermissions, type DatasetSource, type DatasetSourceType, type DatasetState, DatasetStates, type DatasetTerminalState, type DatasetValidatedState, DatasetsTerminalStates, type DisplayApp, type EncodedDatasetJobInfo, type EncodedHdcaSourceId, type ErrorWithMessage, type ErrorWithStatus, type GalaxyBaseSelectToolParameter, type GalaxyBooleanToolParameter, GalaxyClient, type GalaxyConditionalCase, type GalaxyConditionalParameter, type GalaxyDataToolParameter, type GalaxyDataToolValue, type GalaxyDataset, type GalaxyFloatToolParameter, type GalaxyHistoryDetailed, type GalaxyIntegerToolParameter, type GalaxyInvocation, type GalaxyInvocationIO, type GalaxyInvocationOuput, type GalaxyInvocationStep, type GalaxyInvoke, type GalaxyMultipleSelectToolParameter, type GalaxySelectToolParameter, type GalaxySingleSelectToolParameter, type GalaxyState, GalaxyStates, type GalaxyTool, type GalaxyToolOutput, type GalaxyToolParameterType, type GalaxyToolParameterValue, type GalaxyToolParameters, type GalaxyUploadedDataset, type GalaxyVersion, type GalaxyWorkflow, type GalaxyWorkflowExport, type GalaxyWorkflowInput, type GalaxyWorkflowParameters, type GalaxyWorkflowsItem, type HDACustom, type HDADetailed, type HDAInaccessible, type HDAObject, type HDASummary, type HDCACustom, type HDCADetailed, type HDCASummary, type HDCJobStateSummary, type HashFunctionNames, type HistoryContentsResult, type HistoryState, type HistoryStateDetails, type HistoryStateIds, HistoryStates, type Hyperlink, type InvocationState, InvocationStates, type InvocationTerminalState, InvocationTerminalStates, type JobMetric, type JobSourceType, type JobState, JobStates, type JobTerminalState, JobTerminalStates, type MetadataFile, type ShowFullJobResponse, type SrcInput, type TagCollection, type Visualization, type WorkflowInput, type WorkflowInputStep, type WorkflowStep, type WorkflowStepDataCollectionExport, type WorkflowStepDataExport, type WorkflowStepExport, type WorkflowStepParameterExport, type WorkflowStepToolExport, type WorkflowStepType, getErrorMessage, getStatusCode, isErrorWithMessage, isErrorWithStatus, toErrorWithMessage, toErrorWithStatus };
