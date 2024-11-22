@@ -1,5 +1,5 @@
 import type { GalaxyClient } from './GalaxyClient'
-import type { GalaxyInvoke, GalaxyWorkflow, GalaxyWorkflowExport, GalaxyWorkflowInput, GalaxyWorkflowParameters } from './types'
+import type { GalaxyInvoke, GalaxyWorkflow, GalaxyWorkflowExport, GalaxyWorkflowInput, GalaxyWorkflowParameters, GalaxyWorkflowsItem } from './types'
 import { createError } from 'h3'
 
 import { getErrorMessage, getStatusCode } from './errors'
@@ -66,9 +66,9 @@ export class Workflows {
     }
   }
 
-  public async getWorkflows(): Promise<GalaxyWorkflow[]> {
+  public async getWorkflows(): Promise<GalaxyWorkflowsItem[]> {
     try {
-      const galaxyWorkflows = await this.#client.api<GalaxyWorkflow[]>(
+      const galaxyWorkflows = await this.#client.api<GalaxyWorkflowsItem[]>(
         'api/workflows',
         {
           method: 'GET',

@@ -1,3 +1,4 @@
+import type { TagCollection } from './tag'
 import type { GalaxyToolParameters, GalaxyToolParameterValue } from './tool'
 
 export type SrcInput = 'hda' | 'ldda' | 'ld' | 'hdca'
@@ -37,6 +38,28 @@ export interface WorkflowStep {
   input_steps: Record<string, WorkflowInputStep>
 }
 
+export interface GalaxyWorkflowsItem {
+
+  model_class: string
+  id: string
+  name: string
+  create_time: Date
+  update_time: Date
+  published: boolean
+  importable: boolean
+  deleted: boolean
+  hidden: boolean
+  tags: TagCollection
+  latest_workflow_uuid: string
+  annotation: string | null
+  url: string
+  owner: string
+  source_metadata: string | null
+  number_of_steps: number
+  show_in_tool_panel: boolean
+
+}
+
 export interface GalaxyWorkflow {
   model_class: string
   id: string
@@ -52,7 +75,7 @@ export interface GalaxyWorkflow {
   url: string
   owner: string
   inputs: { [key: string]: WorkflowInput }
-  annotation: string
+  annotation: string | null
   license: string | null
   creator: string | null
   source_metadata: string | null
