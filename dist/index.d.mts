@@ -1887,6 +1887,7 @@ interface GalaxyToolOutput {
 interface GalaxyTool {
     model_class: 'Tool';
     id: string;
+    name: string;
     version: string;
     description: string;
     edam_operations: string[];
