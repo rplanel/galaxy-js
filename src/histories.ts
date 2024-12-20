@@ -91,37 +91,40 @@ export class Histories {
 
   public async uploadFile(historyId: string, srcUrl: string): Promise<GalaxyUploadedDataset> {
     const formData = new FormData()
-    formData.append('history_id', historyId)
-    formData.append('targets', JSON.stringify([{
-      destination: { type: 'hdas' },
-      elements: [{
-        src: 'url',
-        url: srcUrl,
-        name: null,
-        dbkey: '?',
-        ext: 'auto',
-        space_to_tab: false,
-        to_posix_lines: true,
-      }],
-    }]))
-    // const payload = {
-    //   history_id: historyId,
-    //   targets: [{
-    //     destination: { type: 'hdas' },
-    //     elements: [{
-    //       src: 'url',
-    //       url: srcUrl,
-    //       name: null,
-    //       dbkey: '?',
-    //       ext: 'auto',
-    //       space_to_tab: false,
-    //       to_posix_lines: true,
-    //     }],
+    // formData.append('history_id', historyId)
+    // formData.append('targets', JSON.stringify([{
+    //   destination: { type: 'hdas' },
+    //   elements: [{
+    //     src: 'url',
+    //     url: srcUrl,
+    //     name: null,
+    //     dbkey: '?',
+    //     ext: 'auto',
+    //     space_to_tab: false,
+    //     to_posix_lines: true,
     //   }],
-    //   auto_decompress: true,
-    //   files: [],
-    // }
-
+    // }]))
+    const payload: Record<string, unknown> = {
+      history_id: historyId,
+      targets: [{
+        destination: { type: 'hdas' },
+        elements: [{
+          src: 'url',
+          url: srcUrl,
+          name: null,
+          dbkey: '?',
+          ext: 'auto',
+          space_to_tab: false,
+          to_posix_lines: true,
+        }],
+      }],
+      auto_decompress: true,
+      files: [],
+    }
+    const keys = Object.keys(payload)
+    keys.forEach((key) => {
+      formData.append(key, payload[key])
+    })
     // console.log(payload)
 
     try {
@@ -130,7 +133,7 @@ export class Histories {
         {
           method: 'POST',
           body: formData,
-          headers: { 'Content-Type': 'multipart/form-data' },
+          // headers: { 'Content-Type': 'multipart/form-data' },
 
         },
       )
