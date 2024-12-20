@@ -90,7 +90,7 @@ export class Histories {
   }
 
   public async uploadFile(historyId: string, srcUrl: string): Promise<GalaxyUploadedDataset> {
-    const formData = new FormData()
+    // const formData = new FormData()
     // formData.append('history_id', historyId)
     // formData.append('targets', JSON.stringify([{
     //   destination: { type: 'hdas' },
@@ -121,10 +121,10 @@ export class Histories {
       auto_decompress: true,
       files: [],
     }
-    const keys = Object.keys(payload)
-    keys.forEach((key) => {
-      formData.append(key, payload[key])
-    })
+    // const keys = Object.keys(payload)
+    // keys.forEach((key) => {
+    //   formData.append(key, payload[key])
+    // })
     // console.log(payload)
 
     try {
@@ -132,8 +132,8 @@ export class Histories {
         'api/tools/fetch',
         {
           method: 'POST',
-          body: formData,
-          // headers: { 'Content-Type': 'multipart/form-data' },
+          body: JSON.stringify(payload),
+          // headers: { accept: '*/*' },
 
         },
       )

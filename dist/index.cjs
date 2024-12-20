@@ -989,7 +989,6 @@ const _Histories = class _Histories {
     }
   }
   async uploadFile(historyId, srcUrl) {
-    const formData = new FormData();
     const payload = {
       history_id: historyId,
       targets: [{
@@ -1007,17 +1006,13 @@ const _Histories = class _Histories {
       auto_decompress: true,
       files: []
     };
-    const keys = Object.keys(payload);
-    keys.forEach((key) => {
-      formData.append(key, payload[key]);
-    });
     try {
       const galaxyDataset = await __privateGet$4(this, _client$4).api(
         "api/tools/fetch",
         {
           method: "POST",
-          body: formData
-          // headers: { 'Content-Type': 'multipart/form-data' },
+          body: JSON.stringify(payload)
+          // headers: { accept: '*/*' },
         }
       );
       return galaxyDataset;
