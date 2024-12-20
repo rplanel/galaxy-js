@@ -1009,7 +1009,8 @@ const _Histories = class _Histories {
         "api/tools/fetch",
         {
           method: "POST",
-          body: payload
+          body: payload,
+          headers: { "Content-Type": "multipart/form-data" }
         }
       );
       return galaxyDataset;
