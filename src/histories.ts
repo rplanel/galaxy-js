@@ -107,12 +107,40 @@ export class Histories {
       auto_decompress: true,
       files: [],
     }
+
+    /**
+     *
+     */
+
+    /**
+     * [
+  {
+    "destination": {
+      "type": "hdas"
+    },
+    "elements": [
+      {
+        "src": "url",
+        "url": "https://dl.pasteur.fr/fop/WhYOEtav/ESCO001.0523.00075.prt",
+        "dbkey": "?",
+        "ext": "auto",
+        "name": null,
+        "space_to_tab": false,
+        "to_posix_lines": true,
+        "deferred": false
+      }
+    ]
+  }
+]
+     */
     try {
       const galaxyDataset: GalaxyUploadedDataset = await this.#client.api(
         'api/tools/fetch',
         {
           method: 'POST',
           body: payload,
+          headers: { 'Content-Type': 'multipart/form-data' },
+
         },
       )
       return galaxyDataset
