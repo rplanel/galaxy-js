@@ -989,29 +989,27 @@ const _Histories = class _Histories {
     }
   }
   async uploadFile(historyId, srcUrl) {
-    const payload = {
-      history_id: historyId,
-      targets: [{
-        destination: { type: "hdas" },
-        elements: [{
-          src: "url",
-          url: srcUrl,
-          name: null,
-          dbkey: "?",
-          ext: "auto",
-          space_to_tab: false,
-          to_posix_lines: true
-        }]
-      }],
-      auto_decompress: true,
-      files: []
-    };
+    const formData = new FormData();
+    formData.append("history_id", historyId);
+    formData.append("targets", JSON.stringify([{
+      destination: { type: "hdas" },
+      elements: [{
+        src: "url",
+        url: srcUrl,
+        name: null,
+        dbkey: "?",
+        ext: "auto",
+        space_to_tab: false,
+        to_posix_lines: true
+      }]
+    }]));
+    console.log(formData);
     try {
       const galaxyDataset = await __privateGet$4(this, _client$4).api(
         "api/tools/fetch",
         {
           method: "POST",
-          body: payload,
+          body: formData,
           headers: { "Content-Type": "multipart/form-data" }
         }
       );

@@ -90,55 +90,46 @@ export class Histories {
   }
 
   public async uploadFile(historyId: string, srcUrl: string): Promise<GalaxyUploadedDataset> {
-    const payload = {
-      history_id: historyId,
-      targets: [{
-        destination: { type: 'hdas' },
-        elements: [{
-          src: 'url',
-          url: srcUrl,
-          name: null,
-          dbkey: '?',
-          ext: 'auto',
-          space_to_tab: false,
-          to_posix_lines: true,
-        }],
+    const formData = new FormData()
+    formData.append('history_id', historyId)
+    formData.append('targets', JSON.stringify([{
+      destination: { type: 'hdas' },
+      elements: [{
+        src: 'url',
+        url: srcUrl,
+        name: null,
+        dbkey: '?',
+        ext: 'auto',
+        space_to_tab: false,
+        to_posix_lines: true,
       }],
-      auto_decompress: true,
-      files: [],
-    }
+    }]))
+    // const payload = {
+    //   history_id: historyId,
+    //   targets: [{
+    //     destination: { type: 'hdas' },
+    //     elements: [{
+    //       src: 'url',
+    //       url: srcUrl,
+    //       name: null,
+    //       dbkey: '?',
+    //       ext: 'auto',
+    //       space_to_tab: false,
+    //       to_posix_lines: true,
+    //     }],
+    //   }],
+    //   auto_decompress: true,
+    //   files: [],
+    // }
 
-    /**
-     *
-     */
+    // console.log(payload)
 
-    /**
-     * [
-  {
-    "destination": {
-      "type": "hdas"
-    },
-    "elements": [
-      {
-        "src": "url",
-        "url": "https://dl.pasteur.fr/fop/WhYOEtav/ESCO001.0523.00075.prt",
-        "dbkey": "?",
-        "ext": "auto",
-        "name": null,
-        "space_to_tab": false,
-        "to_posix_lines": true,
-        "deferred": false
-      }
-    ]
-  }
-]
-     */
     try {
       const galaxyDataset: GalaxyUploadedDataset = await this.#client.api(
         'api/tools/fetch',
         {
           method: 'POST',
-          body: payload,
+          body: formData,
           headers: { 'Content-Type': 'multipart/form-data' },
 
         },
